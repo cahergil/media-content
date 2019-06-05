@@ -41,6 +41,11 @@ const styles = theme => ({
   },
   tableHeadType: {
     width: '15%'
+  },
+  '@global': {
+    'tbody > tr:nth-of-type(odd)': {
+      backgroundColor: '#f0eeee'
+    }
   }
 })
 
@@ -62,7 +67,7 @@ const List = (props) => {
 
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           {
             filteredMediaList.map((item) => (
               <TableRow key={item.id}>

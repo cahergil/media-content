@@ -1,12 +1,7 @@
 import React from 'react';
+
 import List from './List/List';
 import Grid from './Grid/Grid';
-
-
-
-
-
-
 
 const ListGrid = (props) => {
   const {  media, showList, showGrid, isShows, isEpisodes } = props
