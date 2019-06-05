@@ -14,9 +14,9 @@ const ListGrid = (props) => {
   if (media) {
    
     if (showList) {
-      content = <List media={media}/>
+      content = <List media={media} isShows={isShows} isEpisodes={isEpisodes}/>
     } else if (showGrid) {
-      content = <Grid media={media} />
+      content = <Grid media={media} isShows={isShows} isEpisodes={isEpisodes} />
     }
 
   }

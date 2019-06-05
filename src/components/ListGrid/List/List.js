@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { filterMedia } from '../../../Utils/utils';
 
 
 const cellFontColor = {
@@ -44,8 +45,12 @@ const styles = theme => ({
 })
 
 const List = (props) => {
-  const { classes, media } = props
+  const { classes, media, isShows, isEpisodes } = props;
+  let filteredMediaList = [];
+  if (media) { 
 
+    filteredMediaList = filterMedia(media, isShows, isEpisodes);
+  }
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
@@ -59,8 +64,8 @@ const List = (props) => {
         </TableHead>
         <TableBody>
           {
-            media.map((item, index) => (
-              <TableRow key={index}>
+            filteredMediaList.map((item) => (
+              <TableRow key={item.id}>
                 <TableCell style={cellFontColor} className={classes.tableId} component="th" align="left" scope="row">
                   {item.id}
                 </TableCell>

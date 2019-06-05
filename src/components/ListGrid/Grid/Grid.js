@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
 import GridItem from './GridItem/GridItem';
+import { filterMedia } from '../../../Utils/utils';
 
 const styles = theme => ({
   root: {
@@ -14,12 +15,17 @@ const styles = theme => ({
 });
 
 const Grid = (props) => {
-  const { classes, media } = props;
+  const { classes, media, isShows, isEpisodes } = props;
+  let filteredMediaList = [];
+  if (media) {
 
+    filteredMediaList = filterMedia(media, isShows, isEpisodes);
+  }
+ 
   return (
     <div className={classes.root} >
       {
-        media.map((mediaItem, index) => {
+        filteredMediaList.map((mediaItem, index) => {
           return (
             <GridItem
               key={index}

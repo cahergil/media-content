@@ -38,3 +38,20 @@ export const transformData = (media) => {
   return mediaTransformed;
 
 }
+
+export const filterMedia =(media,isShows, isEpisodes) => {
+  const copyMediaList = []
+  let filteredList = []
+ 
+  
+  for (let i = 0; i < media.length; i++) {
+    copyMediaList.push(media[i]);
+  }
+
+  filteredList = copyMediaList.filter(item => {
+    return (item.type === (isShows ? 'show' : '')) || (item.type === (isEpisodes ? 'episode' : ''))
+  })
+
+  
+  return filteredList;
+}
