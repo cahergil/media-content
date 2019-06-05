@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
-import mediaReducer from './store/reducers/media';
+import { Provider } from 'react-redux';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter } from 'react-router-dom';
 
+import mediaReducer from './store/reducers/media';
+import filterReducer from './store/reducers/filter';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -37,7 +38,8 @@ const theme = createMuiTheme({
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  media: mediaReducer
+  media: mediaReducer,
+  filter: filterReducer
 });
 
 

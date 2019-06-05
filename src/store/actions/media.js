@@ -27,7 +27,8 @@ export const setMediaContentFailed = (error) => {
 export const setMediaContent = () => {
   return dispatch => {
     dispatch(setMediaContentStart());
-    axios.get('./data.json')
+    // axios.get('./data.json')
+    axios.get('../data.json')
       .then(response => {
         console.log(response)
         dispatch(setMediaContentSucceed(response.data.contents))
