@@ -18,7 +18,7 @@ const styles = theme => ({
     // overflowX: 'auto',
   },
   table: {
-    minWidth: 650,
+    width: '100%',
   },
   paper: {
     marginTop: theme.spacing(3),
