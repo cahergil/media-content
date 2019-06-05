@@ -39,7 +39,8 @@ const  App = props => {
       <Breadcrum />
       <div className={classes.margin}></div>
       <Switch>
-        <Route path="/contents/browse" component={ContentMediaPanel} />
+        <Route path="/contents/browse" exact component={ContentMediaPanel} />
+        
         <Redirect to="/contents/browse" />
       </Switch>
       

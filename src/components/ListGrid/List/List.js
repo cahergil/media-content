@@ -1,11 +1,14 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
+import { withRouter} from 'react-router-dom'
+import { compose } from 'recompose';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+
 import { filterMedia } from '../../../Utils/utils';
 
 
@@ -34,8 +37,7 @@ const styles = theme => ({
   },
   tableId: {
     width: '15%',
-    // color: '#000'
-  },
+    },
   tableTitle: {
     width: '75%'
   },
@@ -49,13 +51,19 @@ const styles = theme => ({
   }
 })
 
-const List = (props) => {
+const ListTable = (props) => {
   const { classes, media, isShows, isEpisodes } = props;
   let filteredMediaList = [];
+  // console.log(props);
   if (media) { 
 
     filteredMediaList = filterMedia(media, isShows, isEpisodes);
   }
+  const handleOnClick = (e) => {
+    console.log('click',e);
+  
+  }
+
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
@@ -70,14 +78,37 @@ const List = (props) => {
         <TableBody >
           {
             filteredMediaList.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell style={cellFontColor} className={classes.tableId} component="th" align="left" scope="row">
+
+              <TableRow key={item.id} style={{ 'cursor': 'pointer' }}  >
+                <TableCell
+                  style={cellFontColor}
+                  className={classes.tableId}
+                  component="th"
+                  align="left"
+                  scope="row"
+                  onClick={() => handleOnClick(item.id)}
+                >
                   {item.id}
                 </TableCell>
-                <TableCell style={cellFontColor} className={classes.tableTitle} align="left">{item.title}</TableCell>
-                <TableCell style={cellFontColor} className={classes.tableType} align="right">{item.type}</TableCell>
+                <TableCell
+                  style={cellFontColor} 
+                  className={classes.tableTitle}
+                  align="left"
+                  onClick={() => handleOnClick(item.id)}
+                >
+                  {item.title}
+                </TableCell>
+                <TableCell
+                  style={cellFontColor}
+                  className={classes.tableType}
+                  align="right"
+                  onClick={() => handleOnClick(item.id)}
+                >
+                  {item.type}
+                </TableCell>
 
               </TableRow>
+
             ))
 
           }
@@ -86,5 +117,10 @@ const List = (props) => {
     </Paper>
   );
 }
-
-export default withStyles(styles)(List)
+// export default compose(
+//   withRouter(),
+//   withStyles(styles)
+// )(List);
+const List = withRouter(
+  withStyles(styles)(ListTable));
+export default List; 
