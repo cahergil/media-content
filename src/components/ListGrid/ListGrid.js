@@ -7,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-const fontWhite = {
+const cellFontColor = {
   color: '#000'
 }
 
@@ -63,11 +63,11 @@ const ListGrid = (props) => {
           {
             media.map((item, index) => (
               <TableRow  key={index}>
-                <TableCell style={fontWhite} className={classes.tableId} component="th" align="left" scope="row">
+                <TableCell style={cellFontColor} className={classes.tableId} component="th" align="left" scope="row">
                   {item.id}
                 </TableCell>
-                <TableCell style={fontWhite} className={classes.tableTitle} align="left">{item.title}</TableCell>
-                <TableCell style={fontWhite} className={classes.tableType} align="right">{item.type}</TableCell>
+                <TableCell style={cellFontColor} className={classes.tableTitle} align="left">{item.title}</TableCell>
+                <TableCell style={cellFontColor} className={classes.tableType} align="right">{item.type}</TableCell>
 
               </TableRow>
             ))
