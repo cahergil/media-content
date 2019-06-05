@@ -6,8 +6,7 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   filterLabel: {
-    // fontSize : '1.5rem'
-    paddingTop: '6px'
+    paddingTop: '4px'
   },
   root: {
     width: '100%',
@@ -23,7 +22,6 @@ const styles = theme => ({
     margin: '0 1rem'
   },
   marginButton: {
-    // margin: theme.spacing(1),
     margin: '1px'
   },
 });
@@ -44,10 +42,9 @@ const Filter = (props) => {
   }
 
   const buttonListHandler = () => {
-    // if (name === 'listButton') {
-      clickList(true);
-    // } else {
-    // }
+   
+    clickList(true);
+    
   }
   const buttonGridHandler = () => {
     
@@ -55,7 +52,7 @@ const Filter = (props) => {
   }
   return (
     <div className={classes.root}>
-      {/* <div className={classes.filterLabel}>Filter</div> */}
+     
       <Typography className={classes.filterLabel} variant="h5" >
         Filter
       </Typography>
