@@ -7,6 +7,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+const fontWhite = {
+  color: '#000'
+}
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -27,36 +31,56 @@ const styles = theme => ({
     backgroundColor: '#252934'
   },
   tableId: {
-    width: '15%'
+    width: '15%',
+    // color: '#000'
   },
   tableTitle: {
     width: '75%'
   },
-  tableType: {
+  tableHeadType: {
     width: '15%'
   }
 })
 
 
 const ListGrid = (props) => {
-  const { classes } = props
-  return (
-    <div>
-      <Paper className={classes.paper}>
-        <Table className={classes.table}>
-          <TableHead className={classes.tableHead}>
-            <TableRow  >
-              <TableCell className={classes.tableId} align="left">Id</TableCell>
-              <TableCell className={classes.tableTitle} align="center">Title</TableCell>
-              <TableCell className={classes.tableType} align="right">Type</TableCell>
-            
-            </TableRow>
-          </TableHead>
-          <TableBody>
+  const { classes, media } = props
+  let content;
 
-          </TableBody>
-          </Table>
-        </Paper>
+  if (media) {
+   
+    content = <Paper className={classes.paper}>
+      <Table className={classes.table}>
+        <TableHead className={classes.tableHead}>
+          <TableRow  >
+            <TableCell className={classes.tableId} align="left">Id</TableCell>
+            <TableCell className={classes.tableTitle} align="left">Title</TableCell>
+            <TableCell className={classes.tableType} align="right">Type</TableCell>
+
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {
+            media.map((item, index) => (
+              <TableRow  key={index}>
+                <TableCell style={fontWhite} className={classes.tableId} component="th" align="left" scope="row">
+                  {item.id}
+                </TableCell>
+                <TableCell style={fontWhite} className={classes.tableTitle} align="left">{item.title}</TableCell>
+                <TableCell style={fontWhite} className={classes.tableType} align="right">{item.type}</TableCell>
+
+              </TableRow>
+            ))
+
+          }
+        </TableBody>
+      </Table>
+    </Paper>
+  }
+  return (
+    
+    <div>
+     {content}
     </div>
   )
 }

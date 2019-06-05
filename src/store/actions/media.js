@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import { transformData } from '../../Utils/utils';
 // import jsonFile from '../../assets/files/playas.json' not working
 // set json file in public directory
 export const setMediaContentStart = () => {
@@ -30,8 +31,7 @@ export const setMediaContent = () => {
     // axios.get('./data.json')
     axios.get('../data.json')
       .then(response => {
-        console.log(response)
-        dispatch(setMediaContentSucceed(response.data.contents))
+        dispatch(setMediaContentSucceed(transformData(response.data.contents)))
       }
     ).catch(err => {
         dispatch(setMediaContentFailed())
