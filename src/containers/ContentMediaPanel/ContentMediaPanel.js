@@ -37,8 +37,8 @@ const ContentMediaPanel = (props) => {
       />
       <ListGrid
         media={props.media}
-        isList={props.list}
-        isGrid={props.grid}
+        showList={props.list}
+        showGrid={props.grid}
         isShows={props.shows}
         isEpisodes={props.episodes}
       />
