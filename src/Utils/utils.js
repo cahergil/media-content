@@ -55,3 +55,13 @@ export const filterMedia =(media,isShows, isEpisodes) => {
   
   return filteredList;
 }
+
+export const deepCopy =(data) => {
+  const copiedArray = []
+  if (data) {
+    for (let i = 0; i < data.length; i++) {
+      copiedArray.push(data[i]);
+    }
+  }
+  return copiedArray;
+}
