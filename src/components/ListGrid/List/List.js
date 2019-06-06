@@ -59,8 +59,12 @@ const ListTable = (props) => {
 
     filteredMediaList = filterMedia(media, isShows, isEpisodes);
   }
-  const handleOnClick = (e) => {
-    console.log('click',e);
+  const handleOnClick = (id) => {
+    console.log('click', id);
+    props.history.push({
+      pathname: '/contents/edit',
+      search: `?id=${id}`
+    })
   
   }
 

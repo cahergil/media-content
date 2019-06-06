@@ -10,6 +10,7 @@ import Breadcrum from './containers/Breadcrum';
 import * as actions from './store/actions/media';
 // import Filters from './components/Filter/Filters';
 import ContentMediaPanel from './containers/ContentMediaPanel/ContentMediaPanel';
+import ContentDetailPanel from './containers/ContentDetailPanel/ContentDetailPanel';
 
 
 const styles = theme => ({
@@ -40,7 +41,7 @@ const  App = props => {
       <div className={classes.margin}></div>
       <Switch>
         <Route path="/contents/browse" exact component={ContentMediaPanel} />
-        
+        <Route path="/contents/edit" exact component={ContentDetailPanel} />
         <Redirect to="/contents/browse" />
       </Switch>
       

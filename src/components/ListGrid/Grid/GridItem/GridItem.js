@@ -35,6 +35,10 @@ const GridItem = (props) => {
   const classes = useStyles(props);
   const handleClick = (id) => {
     console.log(id);
+    props.history.push({
+      pathname: '/contents/edit',
+      search: `?id=${id}`
+    })
   }
   return (
     <div className={classes.root} onClick={() =>handleClick(id)}>
