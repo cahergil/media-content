@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import * as Yup from 'yup';
 
-import scssClasses from './MediaForm.module.scss';
+import classesScss from './MediaForm.module.scss';
 // import { Debug } from './Debug';
 
 const useStyles = makeStyles(theme => ({
@@ -44,7 +44,7 @@ const Fieldset = ({ label, name, ...props }) => (
     >
       <label style={{ 'marginRight': '1rem','fontSize': '1.5rem' }} htmlFor={name}>{label}</label>
       <FastField
-        className={scssClasses.FormField}
+        className={classesScss.FormField}
         style= {{ color: '#999'}}
         name={name} {...props} />
       <ErrorMessage name={name}>
@@ -75,7 +75,7 @@ const MediaForm = (props) => {
             id: register.id,
             type: register.type,
             title: register.title,
-              categories: register.categories,
+            categories: register.categories,
             synopsis: register.synopsis,
             releaseDate: register.releaseDate,
             score: register.score,

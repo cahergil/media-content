@@ -18,7 +18,7 @@ const Grid = (props) => {
   
   let content = null;
   if (media) {
-    console.log(media);
+   
     content = (
       <div className={classes.root} >
       {

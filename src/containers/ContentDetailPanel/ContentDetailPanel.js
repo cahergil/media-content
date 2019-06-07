@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
-
 import queryString from 'query-string';
 
 import Poster from '../../components/Detail/Poster/Poster';
@@ -9,6 +8,7 @@ import MediaForm from '../../components/Detail/MediaForm/MediaForm';
 import Episodes from './../../components/Detail/Episodes/Epidoses';
 import { deepCopy, getEpisodes } from '../../Utils/utils';
 import * as formActions from '../../store/actions/form';
+import classesScss from './ContentDetailPanel.module.scss';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -23,17 +23,6 @@ const useStyles = makeStyles( theme => ({
     //   gridTemplateRows: '30rem min-content min-content min-content',
     //   justifyContent: 'center'
     // }
-  },
-  spanEpisodes: {
-    gridColumn: '1 / span 2'
-  },
-  posterStyles: {
-    // paddingTop: '2rem'
-  },
-  formStyles: {
-
-    boxShadow: '0px 0px 1px #000',
-    borderRadius: '5px'
   }
 }));
 
@@ -55,10 +44,10 @@ const ContentDetailPanel = (props) => {
     const episodes = isShow ? getEpisodes(result, copiedMedia):[]
     content = (
       <React.Fragment>
-        <div className={classes.posterStyles}>
+        <div>
           <Poster imageUrl={result.imageUrl} title={result.title}/>
         </div>
-        <div className={classes.formStyles}>
+        <div className={classesScss.FormBoxShadow}>
           <MediaForm register={result} onSaveForm={onSaveForm}/>
         </div>
         {isShow ? <Episodes episodes={episodes}/>: null}  
