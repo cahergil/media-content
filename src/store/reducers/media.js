@@ -28,6 +28,7 @@ const reducer = (state = initialState, action) => {
       let temp = [...state.mediaList];
       let k = 0;
       for (let i = 0; i < temp.length; i++) {
+        // eslint-disable-next-line eqeqeq
         if (temp[i].id == action.payload.id) {
           k = i;
           console.log(k);
