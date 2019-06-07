@@ -68,7 +68,18 @@ export const deepCopy =(data) => {
 
 export const getEpisodes = (result, media) => {
   const episodesFieldSet = new Set(result.episodes);
+  const compare =(a, b) => {
+    if (a.title < b.title) {
+      return -1;
+    }
+    if (a.title > b.title) {
+      return 1;
+    }
+    return 0;
+  }
+  const episodes = media
+    .filter(mediaItem => episodesFieldSet.has(mediaItem.id))
+    .sort(compare);
   
-  const episodes = media.filter(mediaItem => episodesFieldSet.has(mediaItem.id))
   return episodes
 }
