@@ -16,7 +16,7 @@ const useStyles = makeStyles( theme => ({
     width: '100%',
     display: 'grid',
     gridTemplateColumns: '22.5rem 1fr',
-    gridTemplateRows: '45rem min-content',
+    gridTemplateRows: 'min-content min-content',
     gridColumnGap: '2rem',
     gridRowGap: '4rem',
     // [theme.breakpoints.down(700)]: {
