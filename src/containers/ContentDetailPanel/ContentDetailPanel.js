@@ -8,6 +8,7 @@ import MediaForm from '../../components/Detail/MediaForm/MediaForm';
 import Episodes from './../../components/Detail/Episodes/Epidoses';
 import { deepCopy, getEpisodes } from '../../Utils/utils';
 import * as formActions from '../../store/actions/form';
+import * as breadcrumActions from '../../store/actions/breadcrum';
 import classesScss from './ContentDetailPanel.module.scss';
 
 const useStyles = makeStyles( theme => ({
@@ -27,7 +28,7 @@ const useStyles = makeStyles( theme => ({
 }));
 
 const ContentDetailPanel = (props) => {
-  const { media, onSaveForm } = props;
+  const { media, onSaveForm, onSetPathSegment } = props;
   const SHOW = 'show'
   const classes = useStyles(props);
   let isShow = true;
@@ -39,9 +40,10 @@ const ContentDetailPanel = (props) => {
     
     // eslint-disable-next-line
     const result = copiedMedia.filter(mediaItem => mediaItem.id == id)[0];
+    onSetPathSegment(result.title);
 
     isShow = result.type === SHOW;
-    const episodes = isShow ? getEpisodes(result, copiedMedia):[]
+    const episodes = isShow ? getEpisodes(result, copiedMedia) : [];
     content = (
       <React.Fragment>
         <div>
@@ -71,7 +73,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onSaveForm: (id, item) => dispatch(formActions.setMediaItem(id, item))
+    onSaveForm: (id, item) => dispatch(formActions.setMediaItem(id, item)),
+    onSetPathSegment: (segment) => dispatch(breadcrumActions.setBreadcrumPath(segment))
   }
 }
 

@@ -1,10 +1,12 @@
 import React from 'react';
-import { Paper, Breadcrumbs, withStyles } from '@material-ui/core';
+
+import { Paper, Breadcrumbs } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 
-const styles = theme => ({
+const useStyles = makeStyles(theme =>({
   root: {
     // marginTop: 'rem',
     justifyContent: 'start',
@@ -13,32 +15,37 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing(1, 0),
   },
-
-});
+  contentsStyle: {
+    textDecoration: 'underline',
+    cursor: 'pointer'
+  }
+}));
 
 
 const Breadcrum = (props) => {
-  const { classes, pathSegment } = props;
-  console.log(pathSegment);
+  const {  pathSegment, onSetPathSegment } = props;
+  const classes = useStyles();
+
+  const handleClick = () => {
+    props.history.push({ pathname: '/contents/browse' });
+    onSetPathSegment('...');
+  }
 
   return (
     <div className={classes.root}>
 
       <Paper elevation={0} className={classes.paper}>
         <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="Breadcrumb">
-          <Link color="inherit" to="/contents/browse" >
+          <span className={classes.contentsStyle}
+            color="inherit"
+            onClick={handleClick}
+            >
             Contents
-            </Link>
-          <Link color="inherit" to="/contents/browse">
+          </span>
+          <span style={{ color: '#252934'}}>
             {pathSegment}
-          </Link>
-          {/* <Link color="inherit" href="/contents/browse" >
-            Contents
-            </Link>
-          <Link color="inherit" href="/getting-started/installation/">
-            Core
-          </Link> */}
-          {/* <Typography color="textPrimary">Breadcrumb</Typography> */}
+          </span>
+          
         </Breadcrumbs>
       </Paper>
       
@@ -46,4 +53,4 @@ const Breadcrum = (props) => {
   );
 }
 
-export default withStyles(styles)(Breadcrum);
+export default withRouter(Breadcrum);

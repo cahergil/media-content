@@ -5,10 +5,10 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux'
 import Breadcrum from './containers/Breadcrum';
 
-// import './App.scss';
 
-import * as actions from './store/actions/media';
-// import Filters from './components/Filter/Filters';
+import * as mediaActions from './store/actions/media';
+import * as breadcrumActions from './store/actions/breadcrum';
+
 import ContentMediaPanel from './containers/ContentMediaPanel/ContentMediaPanel';
 import ContentDetailPanel from './containers/ContentDetailPanel/ContentDetailPanel';
 
@@ -28,7 +28,7 @@ const styles = theme => ({
 
 
 const  App = props => {
-  const { classes, pathSegment } = props;
+  const { classes, pathSegment, onSetPathSegment } = props;
   useEffect(() => {
     props.setMediaContent();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,7 +37,9 @@ const  App = props => {
   return (
      
     <div className={classes.root}>
-      <Breadcrum pathSegment={props.pathSegment}/>
+      <Breadcrum
+        pathSegment={pathSegment}
+        onSetPathSegment={onSetPathSegment} />
       <div className={classes.margin}></div>
       <Switch>
         <Route path="/contents/browse" exact component={ContentMediaPanel} />
@@ -57,7 +59,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setMediaContent: () => dispatch(actions.setMediaContent())
+    setMediaContent: () => dispatch(mediaActions.setMediaContent()),
+    onSetPathSegment: (segment) => dispatch(breadcrumActions.setBreadcrumPath(segment))
   }
 }
 
