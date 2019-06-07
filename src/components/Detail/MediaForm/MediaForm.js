@@ -29,12 +29,14 @@ const useStyles = makeStyles(theme => ({
     gridRowGap: '5px',
     fontSize: '1.5rem'
   },
-  buttonStyle: {
-    height: '3rem',
+  formHeaderStyle: {
+    height: '4rem',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-between',
+    backgroundColor: theme.palette.secondary.main,
+    padding: '1rem'
   }
 }));
 const Fieldset = ({ label, name, ...props }) => (
@@ -66,41 +68,21 @@ const MediaForm = (props) => {
     console.log('submitted values', JSON.stringify(values, null, 2));
   }
   if (register) {
-   
-  
-      content = (
+    let initialValues = {}
+    let validationSchemaShape = {}
+    for (let key in register) {
+      initialValues[key] = register[key];
+      validationSchemaShape[key] = (key === 'id' || key ==='type') ? Yup.string(): Yup.string().required('field required')
+    }
+    // console.log(validationSchemaShape);
+    content = (
       <div className={classes.root} >
         <Formik
-          initialValues={{
-            id: register.id,
-            type: register.type,
-            title: register.title,
-            categories: register.categories,
-            synopsis: register.synopsis,
-            releaseDate: register.releaseDate,
-            score: register.score,
-            episodes: register.episodes,
-            imageUrl: register.imageUrl
-          }}
-          validationSchema={Yup.object().shape({
-            id: Yup.string(),
-            type: Yup.string(),
-            title: Yup.string().required('title required'),
-            categories: Yup.string().required('categories required'),
-            synopsis: Yup.string().required('synopsis required'),
-            releaseDate: Yup.string().required('release date required'),
-            score: Yup.string().required('score required'),
-            episodes: Yup.string().required('episodes required'),
-            imageUrl: Yup.string().required('image url required')
-          })}
+          initialValues={initialValues}
+          validationSchema={Yup.object().shape(validationSchemaShape)}
           onSubmit={(values) => {
             handleSubmit(values);
-            // resetForm();
           }}
-          // onReset={() => {
-          //   console.log('form reset')            
-          // }
-          // }
           render={({
             handleSubmit,
             handleReset,
@@ -108,9 +90,17 @@ const MediaForm = (props) => {
            
           }) => (
               <Form>
-                <Typography style={{paddingTop: '3rem', paddingLeft:'3rem'}} variant="h5" >
-                  Info
-                </Typography>
+                <div  className={classes.formHeaderStyle}>
+                  <Typography  variant="h5" >
+                    Info
+                  </Typography>
+                  <div className={classes.grow}></div>
+                  <Button type="submit" variant="contained" color="primary" className={classes.button}>
+                    Save
+                  </Button>
+
+                </div>
+                
                 
                 <div className={classes.fieldsRoot}>
                   <div>
@@ -184,12 +174,7 @@ const MediaForm = (props) => {
   
                   </div>
                 </div>
-                <div className={classes.buttonStyle}>
-                  <Button type="submit" variant="outlined" color="primary" className={classes.button}>
-                    Save
-                  </Button>
-                 
-                </div>
+               
   
                 {/* <Debug /> */}
               </Form>
