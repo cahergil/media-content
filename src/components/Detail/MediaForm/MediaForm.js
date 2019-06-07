@@ -56,7 +56,7 @@ const Fieldset = ({ label, name, ...props }) => (
 
 const MediaForm = (props) => {
   const { register, onSaveForm } = props;
-  console.log(register);
+  // console.log(register);
   const classes = useStyles(props);
   let content = null;
   const handleSubmit = (values) => {
@@ -157,21 +157,24 @@ const MediaForm = (props) => {
                         cols="10"
                         component="textarea" />
                     </div>
-                    {/* <Field component={() => <textarea  placeholder="Some placeholder">hola hola</textarea>}/>  
-  {/*  */}
-                    {/* <Field name="synopsis" component={() => <TextField multiline="true" id="algo" type="textarea" />} /> */}
-  
+   
                     <Fieldset
                       name="score"
                       label="Score"
                       type="text"
                     />
-                    <Fieldset
-                      name="episodes"
-                      label="Episodes"
-                      type="text"
-  
-                    />
+                    {
+                      register.type === 'episode' ? null :
+                        (
+                          <Fieldset
+                            name="episodes"
+                            label="Episodes"
+                            type="text"
+
+                          />      
+                      )  
+                    }
+                    
                     <Fieldset
                       name="imageUrl"
                       label="Img URL"
