@@ -15,17 +15,15 @@ const styles = theme => ({
 });
 
 const Grid = (props) => {
-  const { classes, media, isShows, isEpisodes } = props;
-  let filteredMediaList = [];
+  const { classes, media } = props;
+  
+  let content = null;
   if (media) {
-
-    filteredMediaList = filterMedia(media, isShows, isEpisodes);
-  }
- 
-  return (
-    <div className={classes.root} >
+    console.log(media);
+    content = (
+      <div className={classes.root} >
       {
-        filteredMediaList.map((mediaItem, index) => {
+        media.map((mediaItem, index) => {
           return (
             <GridItem
               key={index}
@@ -36,7 +34,15 @@ const Grid = (props) => {
 
         })
       }
-    </div>
+      </div >
+    )
+    
+  }
+ 
+  return (
+    <React.Fragment>
+      {content}
+    </React.Fragment>
   );
 }
 
