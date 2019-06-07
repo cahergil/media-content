@@ -108,7 +108,7 @@ const MediaForm = (props) => {
            
           }) => (
               <Form>
-                <Typography style={{paddingLeft: '1rem'}} variant="h5" >
+                <Typography style={{paddingTop: '3rem', paddingLeft:'3rem'}} variant="h5" >
                   Info
                 </Typography>
                 
