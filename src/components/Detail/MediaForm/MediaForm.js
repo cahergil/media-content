@@ -55,13 +55,19 @@ const Fieldset = ({ label, name, ...props }) => (
 );
 
 const MediaForm = (props) => {
-  const { register } = props;
+  const { register, onSaveForm } = props;
+  console.log(register);
   const classes = useStyles(props);
   let content = null;
   const handleSubmit = (values) => {
+    const id = values.id;
+    onSaveForm(id, values);
+    
     console.log('submitted values', JSON.stringify(values, null, 2));
   }
   if (register) {
+   
+  
       content = (
       <div className={classes.root} >
         <Formik
@@ -69,7 +75,7 @@ const MediaForm = (props) => {
             id: register.id,
             type: register.type,
             title: register.title,
-            categories: register.categories.join(','),
+              categories: register.categories,
             synopsis: register.synopsis,
             releaseDate: register.releaseDate,
             score: register.score,

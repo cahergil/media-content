@@ -1,6 +1,8 @@
 import React from 'react';
-import { Paper, Breadcrumbs, withStyles, Link } from '@material-ui/core';
+import { Paper, Breadcrumbs, withStyles } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { Link } from 'react-router-dom';
+
 
 const styles = theme => ({
   root: {
@@ -16,20 +18,26 @@ const styles = theme => ({
 
 
 const Breadcrum = (props) => {
-  const { classes } = props;
-
+  const { classes, pathSegment } = props;
+  console.log(pathSegment);
 
   return (
     <div className={classes.root}>
 
       <Paper elevation={0} className={classes.paper}>
         <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="Breadcrumb">
-          <Link color="inherit" href="/contents/browse" >
+          <Link color="inherit" to="/contents/browse" >
+            Contents
+            </Link>
+          <Link color="inherit" to="/contents/browse">
+            {pathSegment}
+          </Link>
+          {/* <Link color="inherit" href="/contents/browse" >
             Contents
             </Link>
           <Link color="inherit" href="/getting-started/installation/">
             Core
-          </Link>
+          </Link> */}
           {/* <Typography color="textPrimary">Breadcrumb</Typography> */}
         </Breadcrumbs>
       </Paper>

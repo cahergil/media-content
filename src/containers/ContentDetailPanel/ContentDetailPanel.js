@@ -8,6 +8,7 @@ import Poster from '../../components/Detail/Poster/Poster';
 import MediaForm from '../../components/Detail/MediaForm/MediaForm';
 import Episodes from './../../components/Detail/Episodes/Epidoses';
 import { deepCopy } from '../../Utils/utils';
+import * as formActions from '../../store/actions/form';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles( theme => ({
 }));
 
 const ContentDetailPanel = (props) => {
-  const { media } = props;
+  const { media, onSaveForm } = props;
   const SHOW = 'show'
   const classes = useStyles(props);
   let isShow = true;
@@ -55,7 +56,7 @@ const ContentDetailPanel = (props) => {
           <Poster imageUrl={result.imageUrl} title={result.title}/>
         </div>
         <div className={classes.formStyles}>
-          <MediaForm register={result}/>
+          <MediaForm register={result} onSaveForm={onSaveForm}/>
         </div>
         {isShow ? <Episodes />: null}  
   
@@ -78,7 +79,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    
+    onSaveForm: (id, item) => dispatch(formActions.setMediaItem(id, item))
   }
 }
 

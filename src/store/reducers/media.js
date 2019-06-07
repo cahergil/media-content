@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 const initialState = {
-  medialist: [],
+  mediaList: [],
   error: false
 };
 
@@ -23,6 +23,28 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: true
+      }
+    case actionTypes.SET_MEDIA_ITEM:
+      let temp = [...state.mediaList];
+      let k = 0;
+      for (let i = 0; i < temp.length; i++) {
+        if (temp[i].id == action.payload.id) {
+          k = i;
+          console.log(k);
+          break;
+        }
+      }
+
+      return {
+        ...state,
+        mediaList: state.mediaList.map((mediaItem,i) => {
+          return i === k ? {...action.payload.item}: mediaItem 
+        })
+        // mediaList: [
+        //   ...state.mediaList.slice(0, k),
+        //   action.payload.item,
+        //   ...state.mediaList.slice(k+1)
+        // ]
       }
 
     default:

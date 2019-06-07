@@ -28,7 +28,7 @@ const styles = theme => ({
 
 
 const  App = props => {
-  const { classes } = props;
+  const { classes, pathSegment } = props;
   useEffect(() => {
     props.setMediaContent();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,7 +37,7 @@ const  App = props => {
   return (
      
     <div className={classes.root}>
-      <Breadcrum />
+      <Breadcrum pathSegment={props.pathSegment}/>
       <div className={classes.margin}></div>
       <Switch>
         <Route path="/contents/browse" exact component={ContentMediaPanel} />
@@ -49,6 +49,11 @@ const  App = props => {
     </div>
   );
 }
+const mapStateToProps = state => {
+  return {
+    pathSegment: state.breadcrum.segment
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -58,7 +63,7 @@ const mapDispatchToProps = dispatch => {
 
 
 export default compose(
-  connect(null, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withStyles(styles)
 )(App)
   

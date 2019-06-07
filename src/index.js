@@ -8,6 +8,8 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import mediaReducer from './store/reducers/media';
 import filterReducer from './store/reducers/filter';
+import breadcrumReducer from './store/reducers/breadcrum';
+
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -39,7 +41,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   media: mediaReducer,
-  filter: filterReducer
+  filter: filterReducer,
+  breadcrum: breadcrumReducer
 });
 
 
