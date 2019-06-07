@@ -10,18 +10,13 @@ const ListGrid = (props) => {
   let filteredMediaList = [];
   if (media) {
     filteredMediaList = filterMedia(media, isShows, isEpisodes);
-    // console.log(filteredMediaList);
+    
     if (showList) {
-      content = <List media={filteredMediaList} isShows={isShows} isEpisodes={isEpisodes}/>
+      content = <List media={filteredMediaList}/>
     } else if (showGrid) {
       content = <Grid media={filteredMediaList} />
     }
-    // if (showList) {
-    //   content = <List media={media} isShows={isShows} isEpisodes={isEpisodes}/>
-    // } else if (showGrid) {
-    //   content = <Grid media={media} isShows={isShows} isEpisodes={isEpisodes} />
-    // }
-
+   
   }
   return (
     

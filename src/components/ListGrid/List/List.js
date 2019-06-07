@@ -52,24 +52,10 @@ const styles = theme => ({
 })
 
 const ListTable = (props) => {
-  const { classes, media, isShows, isEpisodes } = props;
-  let filteredMediaList = [];
-  // console.log(props);
+  const { classes, media } = props;
+  let content = null;
   if (media) { 
-
-    filteredMediaList = filterMedia(media, isShows, isEpisodes);
-  }
-  const handleOnClick = (id) => {
-    console.log('click', id);
-    props.history.push({
-      pathname: '/contents/edit',
-      search: `?id=${id}`
-    })
-  
-  }
-
-  return (
-    <Paper className={classes.paper}>
+    content = <Paper className={classes.paper}>
       <Table className={classes.table}>
         <TableHead className={classes.tableHead}>
           <TableRow  >
@@ -81,34 +67,34 @@ const ListTable = (props) => {
         </TableHead>
         <TableBody >
           {
-            filteredMediaList.map((item) => (
+            media.map((mediaItem) => (
 
-              <TableRow key={item.id} style={{ 'cursor': 'pointer' }}  >
+              <TableRow key={mediaItem.id} style={{ 'cursor': 'pointer' }}  >
                 <TableCell
                   style={cellFontColor}
                   className={classes.tableId}
                   component="th"
                   align="left"
                   scope="row"
-                  onClick={() => handleOnClick(item.id)}
+                  onClick={() => handleOnClick(mediaItem.id)}
                 >
-                  {item.id}
+                  {mediaItem.id}
                 </TableCell>
                 <TableCell
-                  style={cellFontColor} 
+                  style={cellFontColor}
                   className={classes.tableTitle}
                   align="left"
-                  onClick={() => handleOnClick(item.id)}
+                  onClick={() => handleOnClick(mediaItem.id)}
                 >
-                  {item.title}
+                  {mediaItem.title}
                 </TableCell>
                 <TableCell
                   style={cellFontColor}
                   className={classes.tableType}
                   align="right"
-                  onClick={() => handleOnClick(item.id)}
+                  onClick={() => handleOnClick(mediaItem.id)}
                 >
-                  {item.type}
+                  {mediaItem.type}
                 </TableCell>
 
               </TableRow>
@@ -119,6 +105,21 @@ const ListTable = (props) => {
         </TableBody>
       </Table>
     </Paper>
+    
+  }
+  const handleOnClick = (id) => {
+    console.log('click', id);
+    props.history.push({
+      pathname: '/contents/edit',
+      search: `?id=${id}`
+    })
+  
+  }
+
+  return (
+    <React.Fragment>
+      {content}
+    </React.Fragment>
   );
 }
 // export default compose(
