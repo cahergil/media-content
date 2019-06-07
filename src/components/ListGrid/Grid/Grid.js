@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
 import GridItem from './GridItem/GridItem';
-import { filterMedia } from '../../../Utils/utils';
 
 const styles = theme => ({
   root: {
