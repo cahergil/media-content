@@ -65,3 +65,10 @@ export const deepCopy =(data) => {
   }
   return copiedArray;
 }
+
+export const getEpisodes = (result, media) => {
+  const episodesFieldSet = new Set(result.episodes);
+  
+  const episodes = media.filter(mediaItem => episodesFieldSet.has(mediaItem.id))
+  return episodes
+}
