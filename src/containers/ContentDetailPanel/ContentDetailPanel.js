@@ -7,7 +7,7 @@ import queryString from 'query-string';
 import Poster from '../../components/Detail/Poster/Poster';
 import MediaForm from '../../components/Detail/MediaForm/MediaForm';
 import Episodes from './../../components/Detail/Episodes/Epidoses';
-import { deepCopy } from '../../Utils/utils';
+import { deepCopy, getEpisodes } from '../../Utils/utils';
 import * as formActions from '../../store/actions/form';
 
 const useStyles = makeStyles( theme => ({
@@ -15,7 +15,7 @@ const useStyles = makeStyles( theme => ({
     width: '100%',
     display: 'grid',
     gridTemplateColumns: '22.5rem 1fr',
-    gridTemplateRows: '43rem min-content',
+    gridTemplateRows: '45rem min-content',
     gridColumnGap: '2rem',
     gridRowGap: '4rem',
     // [theme.breakpoints.down(700)]: {
@@ -45,11 +45,14 @@ const ContentDetailPanel = (props) => {
   const id = queryString.parse(props.location.search).id;
   let content = null;
   let copiedMedia = [];
-  if (media) {
+  if (media.length > 0) {
     copiedMedia = deepCopy(media);
+    
     // eslint-disable-next-line
     const result = copiedMedia.filter(mediaItem => mediaItem.id == id)[0];
+
     isShow = result.type === SHOW;
+    const episodes = isShow ? getEpisodes(result, copiedMedia):[]
     content = (
       <React.Fragment>
         <div className={classes.posterStyles}>
@@ -58,7 +61,7 @@ const ContentDetailPanel = (props) => {
         <div className={classes.formStyles}>
           <MediaForm register={result} onSaveForm={onSaveForm}/>
         </div>
-        {isShow ? <Episodes />: null}  
+        {isShow ? <Episodes episodes={episodes}/>: null}  
   
         
       </React.Fragment>
