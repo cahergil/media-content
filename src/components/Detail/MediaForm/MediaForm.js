@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import { Formik, FastField, Form, Field, ErrorMessage } from 'formik';
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
@@ -73,6 +73,10 @@ const MediaForm = (props) => {
   const classes = useStyles(props);
   let content = null;
 
+  useEffect(() => {
+    const element = document.getElementById('breadcrum');
+    element.scrollIntoView();
+  }, [])
   const handleSubmit = (values) => {
     const id = values.id;
 
