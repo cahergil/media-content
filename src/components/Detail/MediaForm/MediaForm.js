@@ -98,7 +98,9 @@ const MediaForm = (props) => {
             const titleRegex = /^[-a-z0-9,/()&:.' ]*[a-z][-a-z0-9,/()&:.' ]*$/i;
             const imageUrlRegex = /^https?:\/\/(?:[a-z-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpe?g|gif|png)$/;
             const scoreRegex = /(^\d*\.?\d*[1-9]+\d*$)|(^[1-9]+\d*\.\d*$)/;
-          
+            const categoriesItemRegex = /^[-a-z' ]*[a-z][-a-z' ]*$/i;
+            const categoriesItemRegex1 = /^([-a-z' ]*[a-z][-a-z' ]*){3,}$/i;
+            
             let errors = {};
             // title
             if (!values.title ) {
@@ -123,8 +125,31 @@ const MediaForm = (props) => {
               errors.score = 'score not valid'
             }
             // categories
+            const splittedValues = values.categories.split(',');
+            if (!values.categories) {
+              errors.categories = 'categories required'
+            } else if (!values.categories.trim()) {
+              errors.categories = 'categories regex not valid'
+            } else if (splittedValues.length > 1) {
+              for (let i = 0; i < splittedValues.length; i++) {
+                // coma missplacement
+                if (splittedValues[i] === '' || splittedValues[i].trim() === '') {
+                  errors.categories = 'categories not valid'
+                  break;
+                }
+                if (!categoriesItemRegex.test(splittedValues[i])) {
+                  errors.categories = 'only words allowed';
+                  break;
+                }
+                if (!categoriesItemRegex1.test(splittedValues[i])) {
+                  errors.categories = 'word too short';
+                  break;
+                }
+              }
+            }
+            
             // episodes
-
+            
             
             return errors;
           }
