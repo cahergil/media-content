@@ -1,1 +1,3 @@
 Access a json file with axios: https://github.com/nuxt/nuxt.js/issues/2006
+ // const titleRegex = /^[-a-z0-9,\/()&:.' ]*[a-z][-a-z0-9,\/()&:.' ]*$/i;
+  // const imageUrlRegex = /^https?:\/\/(?:[a-z\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png)$/;

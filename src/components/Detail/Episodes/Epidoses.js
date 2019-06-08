@@ -12,7 +12,8 @@ const useStyles = makeStyles(theme => ({
   },
   titleStyles: {
     padding: '1rem',
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff'
   },
   margin: {
     margin: '0 2rem'
