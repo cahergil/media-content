@@ -9,7 +9,7 @@ import MomentUtils from '@date-io/moment';
 
 
 import classesScss from './MediaForm.module.scss';
-
+import { validateScore, validateEpisodes, validateTitle, validateCategories, validateSynopsis, validateImageUrl } from './validations';
 
 
 const useStyles = makeStyles(theme => ({
@@ -89,71 +89,11 @@ const MediaForm = (props) => {
       initialValues[key] = key === 'releaseDate'? date.toISOString() :register[key];
      
     }
-  
+
     content = (
       <div className={classes.root} >
         <Formik
           initialValues={initialValues}
-          validate={(values) => {
-            const titleRegex = /^[-a-z0-9,/()&:.' ]*[a-z][-a-z0-9,/()&:.' ]*$/i;
-            const imageUrlRegex = /^https?:\/\/(?:[a-z-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpe?g|gif|png)$/;
-            const scoreRegex = /(^\d*\.?\d*[1-9]+\d*$)|(^[1-9]+\d*\.\d*$)/;
-            const categoriesItemRegex = /^[-a-z' ]*[a-z][-a-z' ]*$/i;
-            const categoriesItemRegex1 = /^([-a-z' ]*[a-z][-a-z' ]*){3,}$/i;
-            
-            let errors = {};
-            // title
-            if (!values.title ) {
-              errors.title = 'title required';
-            } else if (!values.title.trim() || !titleRegex.test(values.title)) {
-              errors.title = 'title not valid';
-            } 
-            // synopsis
-            if (!values.synopsis) {
-              errors.synopsis= 'synopsis required'
-            } else if (!values.synopsis.trim()) {
-              errors.synopsis = 'synopsis not valid';
-            }
-            // imageUrl
-            if (!imageUrlRegex.test(values.imageUrl)
-            ) {
-              errors.imageUrl = 'link not valid';
-              
-            }
-            // score
-            if (!scoreRegex.test(values.score) || values.score > 10) {
-              errors.score = 'score not valid'
-            }
-            // categories
-            const splittedValues = values.categories.split(',');
-            if (!values.categories) {
-              errors.categories = 'categories required'
-            } else if (!values.categories.trim()) {
-              errors.categories = 'categories regex not valid'
-            } else if (splittedValues.length > 1) {
-              for (let i = 0; i < splittedValues.length; i++) {
-                // coma missplacement
-                if (splittedValues[i] === '' || splittedValues[i].trim() === '') {
-                  errors.categories = 'categories not valid'
-                  break;
-                }
-                if (!categoriesItemRegex.test(splittedValues[i])) {
-                  errors.categories = 'only words allowed';
-                  break;
-                }
-                if (!categoriesItemRegex1.test(splittedValues[i])) {
-                  errors.categories = 'word too short';
-                  break;
-                }
-              }
-            }
-            
-            // episodes
-            
-            
-            return errors;
-          }
-          }
           onSubmit={(values, { setSubmitting }) => {
             handleSubmit(values);
             setSubmitting(false);
@@ -202,12 +142,14 @@ const MediaForm = (props) => {
                       name="title"
                       label="Title"
                       type="text"
+                      validate={validateTitle}
   
                     />
                     <Fieldset
                       name="categories"
                       label="Categories"
                       type="text"
+                      validate={validateCategories}
                     />
                     <div className={classes.releaseDateStyle}>
                       <label style={{ 'marginRight': '1rem', 'fontSize': '1.5rem' }} >Release Date </label>
@@ -234,6 +176,7 @@ const MediaForm = (props) => {
                         style={{ fontSize: '1.5rem', fontFamily: 'Roboto'}}
                         rows="5"
                         cols="10"
+                        validate={validateSynopsis}
                         component="textarea" />
                       <ErrorMessage name="synopsis">
                         {msg => <div style={{ color: 'red', fontSize: '1.5rem', marginTop: '5px' }} className="field-error">{msg}</div>}
@@ -244,6 +187,7 @@ const MediaForm = (props) => {
                       name="score"
                       label="Score"
                       type="text"
+                      validate={validateScore}
                       style={{ width: '5rem' }}
                     />
                     {
@@ -253,6 +197,7 @@ const MediaForm = (props) => {
                             name="episodes"
                             label="Episodes"
                             type="text"
+                            validate={validateEpisodes}
 
                           />      
                       )  
@@ -262,6 +207,7 @@ const MediaForm = (props) => {
                       name="imageUrl"
                       label="Img URL"
                       type="text"
+                      validate={validateImageUrl}
                     />
   
   

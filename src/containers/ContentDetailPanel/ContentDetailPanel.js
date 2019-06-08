@@ -41,7 +41,6 @@ const ContentDetailPanel = (props) => {
     // eslint-disable-next-line
     const result = copiedMedia.filter(mediaItem => mediaItem.id == id)[0];
     onSetPathSegment(result.title);
-
     isShow = result.type === SHOW;
     const episodes = isShow ? getEpisodes(result, copiedMedia) : [];
     content = (
@@ -50,7 +49,9 @@ const ContentDetailPanel = (props) => {
           <Poster imageUrl={result.imageUrl} title={result.title}/>
         </div>
         <div className={classesScss.FormBoxShadow}>
-          <MediaForm register={result} onSaveForm={onSaveForm}/>
+          <MediaForm
+            register={result}
+            onSaveForm={onSaveForm} />
         </div>
         {isShow ? <Episodes episodes={episodes}/>: null}  
   
