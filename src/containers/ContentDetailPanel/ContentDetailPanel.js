@@ -43,6 +43,7 @@ const ContentDetailPanel = (props) => {
     onSetPathSegment(result.title);
     isShow = result.type === SHOW;
     const episodes = isShow ? getEpisodes(result, copiedMedia) : [];
+    console.log(episodes);
     content = (
       <React.Fragment>
         <div>

@@ -6,11 +6,9 @@ import Button from '@material-ui/core/Button';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
+import * as Yup from 'yup';
+import * as YupFormSchemas from './schemaShape';
 
-
-import classesScss from './MediaForm.module.scss';
-import { validateScore, validateEpisodes, validateTitle, validateCategories, validateSynopsis, validateImageUrl } from './validations';
-import {Debug} from './Debug'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -68,29 +66,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Fieldset = ({ label, name, ...props }) => (
-  <React.Fragment>
-    <div 
-      style={{ margin: '3rem' }}
-    >
-      <label style={{ 'marginRight': '1rem','fontSize': '1.5rem' }} htmlFor={name}>{label}</label>
-      <FastField
-        className={classesScss.FormField}
-        name={name} {...props} />
-      <ErrorMessage name={name}>
-        {msg => <div style={{ color: 'red', fontSize:'1.5rem', marginTop:'5px' }} className="field-error">{msg}</div>}
-      </ErrorMessage>
-    </div>
-  </React.Fragment>
-);
 
 const MediaForm = (props) => {
   const { register, onSaveForm } = props;
+ 
   const classes = useStyles(props);
   let content = null;
 
   const handleSubmit = (values) => {
-    console.log(values.score);
     const id = values.id;
 
     if (!Array.isArray(values.categories)) {
@@ -109,26 +92,28 @@ const MediaForm = (props) => {
         formattedEpisodes[i] = formattedEpisodes[i].trim();
         formattedEpisodes[i] = parseInt(formattedEpisodes[i]);
       }
-      values.categories = formattedEpisodes;
+      values.episodes = formattedEpisodes;
     }
 
     if ((typeof values.score) === 'string') {
-      console.log('is string');
       values.score = parseFloat(values.score);
-      console.log(values.score);
     }
-    // onSaveForm(id, values);
-    // console.log(values);
+    onSaveForm(id, values);
     console.log('submitted values', JSON.stringify(values, null, 2));
   }
+
+
 
   if (register) {
     let initialValues = {}
     let dateString = register.releaseDate.substr(0, 10).split('-').join('/');
-    const date = new Date(dateString); // to eliminate the momentjs warning
 
+    const date = new Date(dateString); // to eliminate the momentjs warning
+    const validationSchemaShape = register.type === 'show' ? YupFormSchemas.schemaShows :
+      YupFormSchemas.SchquemaEpidose;
+    
     for (let key in register) {
-      initialValues[key] = key === 'releaseDate'? date.toISOString() :register[key];
+      initialValues[key] = key === 'releaseDate' ? date.toISOString() : register[key];
      
     }
 
@@ -136,6 +121,7 @@ const MediaForm = (props) => {
       <div className={classes.root} >
         <Formik
           initialValues={initialValues}
+          validationSchema={Yup.object().shape(validationSchemaShape)}
           onSubmit={(values, { setSubmitting }) => {
             handleSubmit(values);
             setSubmitting(false);
@@ -148,14 +134,14 @@ const MediaForm = (props) => {
             touched
           }) => (
               <Form>
-                <div  className={classes.formHeaderStyle}>
-                  <Typography  variant="h5" >
+                <div className={classes.formHeaderStyle}>
+                  <Typography variant="h5" >
                     Info
                   </Typography>
                   <div className={classes.grow}></div>
                   <Button
                     type="submit"
-                    variant="contained" 
+                    variant="contained"
                     color="primary"
                     disabled={isSubmitting}
                     className={classes.button}>
@@ -163,150 +149,137 @@ const MediaForm = (props) => {
                   </Button>
 
                 </div>
-                
-                
+
+
                 <div className={classes.fieldsRoot}>
                   <div>
-                    <Fieldset
-                      name="id"
-                      label="Id"
-                      type="text"
-                      style={{ width: '4rem' }}
-                      disabled={true}
-  
-                    />
-                    <Fieldset
-                      name="type"
-                      label="Type"
-                      type="text"
-                      style={{ width: '10rem' }}
-                      disabled={true}
-                    />
+                    {/* ID */}
+                    <div className={classes.formFiedWrapperStyle}>
+                      <label className={classes.formLabelStyle} >Id</label>
+                      <FastField
+                        className={classes.formFieldStyle}
+                        type="text"
+                        name="id"
+                        style={{ width: '4rem' }}
+                        disabled={true}
+                      />
+                    </div>
+
+                    {/* TYPE */}
+                    <div className={classes.formFiedWrapperStyle}>
+                      <label className={classes.formLabelStyle} >Type</label>
+                      <FastField
+                        className={classes.formFieldStyle}
+                        type="text"
+                        name="type"
+                        style={{ width: '10rem' }}
+                        disabled={true}
+                      />
+                    </div>
 
                     {/* TITLE */}
-                    <div
-                      className={classes.formFiedWrapperStyle}
-                    >
+                    <div className={classes.formFiedWrapperStyle}>
                       <label className={classes.formLabelStyle} >Title</label>
                       <FastField
                         className={classes.formFieldStyle}
                         type="text"
-                        // validate={validateTitle}
                         name="title" />
-                      {errors.title && touched.title && <div>{errors.title}</div>}
-                      {/* <ErrorMessage name="title">
+                      <ErrorMessage name="title">
                         {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
-                      </ErrorMessage> */}
+                      </ErrorMessage>
                     </div>
-                    
+
                     {/* CATEGORIES */}
-                    <div
-                      className={classes.formFiedWrapperStyle}
-                    >
+                    <div className={classes.formFiedWrapperStyle}>
                       <label className={classes.formLabelStyle} >Categories</label>
                       <FastField
                         className={classes.formFieldStyle}
                         type="text"
-                        validate={validateCategories}
                         name="categories" />
-                      {errors.categories && touched.categories && <div>{errors.categories}</div>}
-                      {/* <ErrorMessage name="categories">
+                      <ErrorMessage name="categories">
                         {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
-                      </ErrorMessage> */}
+                      </ErrorMessage>
                     </div>
 
                     {/* RELEASE DATE */}
                     <div className={classes.releaseDateStyle}>
                       <label style={{ 'marginRight': '1rem', 'fontSize': '1.5rem' }} >Release Date </label>
-                      <MuiPickersUtilsProvider utils={MomentUtils }>
-                      
-                          <KeyboardDatePicker 
-                           
-                            name={'releaseDate'}
-                            value={values['releaseDate']}
-                            onChange={date => setFieldValue('releaseDate',date)}
-                            format="YYYY/MM/DD"
-                            
-                            />
-                       
+                      <MuiPickersUtilsProvider utils={MomentUtils}>
+
+                        <KeyboardDatePicker
+
+                          name={'releaseDate'}
+                          value={values['releaseDate']}
+                          onChange={date => setFieldValue('releaseDate', date)}
+                          format="YYYY/MM/DD"
+
+                        />
+
                       </MuiPickersUtilsProvider>
                     </div>
-                   
+
                   </div>
                   <div>
+                    {/* SYNOPSIS */}
                     <div className={classes.textAreaRoot}>
                       <label>Synopsis</label>
                       <Field
                         name="synopsis"
-                        style={{ fontSize: '1.5rem', fontFamily: 'Roboto'}}
+                        style={{ fontSize: '1.5rem', fontFamily: 'Roboto' }}
                         rows="5"
                         cols="10"
-                        validate={validateSynopsis}
                         component="textarea" />
-                      {errors.synopsis && touched.synopsis && <div>{errors.synopsis}</div>}
-                      {/* <ErrorMessage name="synopsis">
+                      <ErrorMessage name="synopsis">
                         {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
-                      </ErrorMessage> */}
+                      </ErrorMessage>
                     </div>
-                    
+
                     {/* SCORE */}
-                    <div
-                      className={classes.formFiedWrapperStyle}
-                    >
+                    <div className={classes.formFiedWrapperStyle}>
                       <label className={classes.formLabelStyle} >Score</label>
                       <FastField
                         className={classes.formFieldStyle}
                         style={{ width: '5rem' }}
                         type="text"
-                        validate={validateScore}
                         name="score" />
-                      {errors.score && touched.score && <div>{errors.score}</div>}
-                      {/* <ErrorMessage name="score">
+                      <ErrorMessage name="score">
                         {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
-                      </ErrorMessage> */}
+                      </ErrorMessage>
                     </div>
 
                     {
                       register.type === 'episode' ? null :
                         (
-                          
+
                           <div className={classes.formFiedWrapperStyle} >
                             <label className={classes.formLabelStyle} >Episodes
                             </label>
                             <FastField
                               className={classes.formFieldStyle}
                               type="text"
-                              validate={validateEpisodes}
                               name="episodes" />
-                            {errors.episodes && touched.episodes && <div>{errors.episodes}</div>}
-                            {/* <ErrorMessage name="episodes">
+                            <ErrorMessage name="episodes">
                               {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
-                            </ErrorMessage> */}
+                            </ErrorMessage>
                           </div>
-                          
-                      )  
+
+                        )
                     }
+                    {/* IMAGE */}
                     <div className={classes.formFiedWrapperStyle} >
                       <label className={classes.formLabelStyle} >Img URL
                             </label>
                       <FastField
                         className={classes.formFieldStyle}
                         type="text"
-                        validate={validateImageUrl}
                         name="imageUrl" />
-                      {errors.imageUrl && touched.imageUrl && <div>{errors.imageUrl}</div>}
-                      {/* <ErrorMessage name="imageUrl">
+                      <ErrorMessage name="imageUrl">
                         {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
-                      </ErrorMessage> */}
+                      </ErrorMessage>
                     </div>
-                   
-  
-  
+
                   </div>
                 </div>
-               
-  
-                {/* <Debug /> */}
               </Form>
             )}
         >

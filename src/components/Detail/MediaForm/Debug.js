@@ -14,7 +14,7 @@ export const Debug = () => (
     <div
       style={{
         textTransform: 'uppercase',
-        fontSize: 11,
+        fontSize: 15,
         borderTopLeftRadius: 4,
         borderTopRightRadius: 4,
         fontWeight: 500,

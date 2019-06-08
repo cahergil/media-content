@@ -9,7 +9,10 @@ export const validateScore = (value) => {
     error = 'score not valid'
   }
 
-  return error;
+  if (error) {
+    return false;
+  }
+  return true;
 }
 
 export const validateTitle = (value) => {
@@ -22,7 +25,10 @@ export const validateTitle = (value) => {
   //   error = 'title not valid';
   // } 
 
-  return error;
+  if (error) {
+    return false;
+  }
+  return true;
 }
 
 export const validateSynopsis = (value) => {
@@ -36,7 +42,10 @@ export const validateSynopsis = (value) => {
   // else if (!synopsisItemRegex.test(value)) {
   // error = 'min 10 characters'
   // }
-  return error;
+  if (error) {
+    return false;
+  }
+  return true;
 }
 
 export const validateImageUrl = (value) => {
@@ -45,10 +54,16 @@ export const validateImageUrl = (value) => {
   if (!imageUrlRegex.test(value)) {
     error = 'link not valid';
   }  
-  return error;
+  if (error) {
+    return false;
+  }
+  return true;
 }
 
+
 export const validateEpisodes = (value) => {
+  
+
   const episodesItemRegex = /^[1-9]\d*$/;
   let error;
   const splittedEpidosesValues = value.split(',');
@@ -70,7 +85,11 @@ export const validateEpisodes = (value) => {
 
     }
   }
-  return error;
+  if (error) {
+    return false;
+  }
+  return true;
+ 
 
 }
 
@@ -79,7 +98,6 @@ export const validateCategories = (value) => {
   const categoriesItemRegex1 = /^([-a-z' ]*[a-z][-a-z' ]*){3,}$/i;
   let error; 
    
-  // console.log(values);
   const splittedCategoriesValues = value.split(',');
   if (!value || !value.trim()) {
     error = 'categories required'
@@ -101,5 +119,8 @@ export const validateCategories = (value) => {
       }
     }
   }
-  return error;
+  if (error) {
+    return false;
+  }
+  return true;
 }
