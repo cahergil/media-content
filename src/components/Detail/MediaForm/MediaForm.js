@@ -10,7 +10,7 @@ import MomentUtils from '@date-io/moment';
 
 import classesScss from './MediaForm.module.scss';
 import { validateScore, validateEpisodes, validateTitle, validateCategories, validateSynopsis, validateImageUrl } from './validations';
-
+import {Debug} from './Debug'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,6 +48,23 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginLeft: '3rem'
+  },
+  formFieldStyle: {
+    fontSize: '1.5rem',
+    padding: '0.3rem 0.3rem'
+
+  },
+  formLabelStyle: {
+    marginRight: '1rem',
+    fontSize: '1.5rem' 
+  },
+  formFiedWrapperStyle: {
+    margin: '3rem'
+  },
+  errorMessageStyle: {
+    color: 'red',
+    fontSize: '1.5rem',
+    marginTop: '5px'
   }
 }));
 
@@ -59,7 +76,6 @@ const Fieldset = ({ label, name, ...props }) => (
       <label style={{ 'marginRight': '1rem','fontSize': '1.5rem' }} htmlFor={name}>{label}</label>
       <FastField
         className={classesScss.FormField}
-        // style= {{ color: '#999'}}
         name={name} {...props} />
       <ErrorMessage name={name}>
         {msg => <div style={{ color: 'red', fontSize:'1.5rem', marginTop:'5px' }} className="field-error">{msg}</div>}
@@ -74,9 +90,35 @@ const MediaForm = (props) => {
   let content = null;
 
   const handleSubmit = (values) => {
+    console.log(values.score);
     const id = values.id;
-    onSaveForm(id, values);
+
+    if (!Array.isArray(values.categories)) {
+      
+      const formattedCategories = values.categories.split(',');
+      for (let i = 0; i < formattedCategories.length; i++) {
+        formattedCategories[i] = formattedCategories[i].trim();
+      }
+      values.categories = formattedCategories;
+    }
     
+    if (values.episodes && !Array.isArray(values.episodes)) {
+      
+      const formattedEpisodes = values.episodes.split(',');
+      for (let i = 0; i < formattedEpisodes.length; i++) {
+        formattedEpisodes[i] = formattedEpisodes[i].trim();
+        formattedEpisodes[i] = parseInt(formattedEpisodes[i]);
+      }
+      values.categories = formattedEpisodes;
+    }
+
+    if ((typeof values.score) === 'string') {
+      console.log('is string');
+      values.score = parseFloat(values.score);
+      console.log(values.score);
+    }
+    // onSaveForm(id, values);
+    // console.log(values);
     console.log('submitted values', JSON.stringify(values, null, 2));
   }
 
@@ -101,7 +143,9 @@ const MediaForm = (props) => {
           render={({
             isSubmitting,
             setFieldValue,
-            values
+            values,
+            errors,
+            touched
           }) => (
               <Form>
                 <div  className={classes.formHeaderStyle}>
@@ -138,19 +182,40 @@ const MediaForm = (props) => {
                       style={{ width: '10rem' }}
                       disabled={true}
                     />
-                    <Fieldset
-                      name="title"
-                      label="Title"
-                      type="text"
-                      validate={validateTitle}
-  
-                    />
-                    <Fieldset
-                      name="categories"
-                      label="Categories"
-                      type="text"
-                      validate={validateCategories}
-                    />
+
+                    {/* TITLE */}
+                    <div
+                      className={classes.formFiedWrapperStyle}
+                    >
+                      <label className={classes.formLabelStyle} >Title</label>
+                      <FastField
+                        className={classes.formFieldStyle}
+                        type="text"
+                        // validate={validateTitle}
+                        name="title" />
+                      {errors.title && touched.title && <div>{errors.title}</div>}
+                      {/* <ErrorMessage name="title">
+                        {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
+                      </ErrorMessage> */}
+                    </div>
+                    
+                    {/* CATEGORIES */}
+                    <div
+                      className={classes.formFiedWrapperStyle}
+                    >
+                      <label className={classes.formLabelStyle} >Categories</label>
+                      <FastField
+                        className={classes.formFieldStyle}
+                        type="text"
+                        validate={validateCategories}
+                        name="categories" />
+                      {errors.categories && touched.categories && <div>{errors.categories}</div>}
+                      {/* <ErrorMessage name="categories">
+                        {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
+                      </ErrorMessage> */}
+                    </div>
+
+                    {/* RELEASE DATE */}
                     <div className={classes.releaseDateStyle}>
                       <label style={{ 'marginRight': '1rem', 'fontSize': '1.5rem' }} >Release Date </label>
                       <MuiPickersUtilsProvider utils={MomentUtils }>
@@ -178,37 +243,63 @@ const MediaForm = (props) => {
                         cols="10"
                         validate={validateSynopsis}
                         component="textarea" />
-                      <ErrorMessage name="synopsis">
-                        {msg => <div style={{ color: 'red', fontSize: '1.5rem', marginTop: '5px' }} className="field-error">{msg}</div>}
-                      </ErrorMessage>
+                      {errors.synopsis && touched.synopsis && <div>{errors.synopsis}</div>}
+                      {/* <ErrorMessage name="synopsis">
+                        {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
+                      </ErrorMessage> */}
                     </div>
-   
-                    <Fieldset
-                      name="score"
-                      label="Score"
-                      type="text"
-                      validate={validateScore}
-                      style={{ width: '5rem' }}
-                    />
+                    
+                    {/* SCORE */}
+                    <div
+                      className={classes.formFiedWrapperStyle}
+                    >
+                      <label className={classes.formLabelStyle} >Score</label>
+                      <FastField
+                        className={classes.formFieldStyle}
+                        style={{ width: '5rem' }}
+                        type="text"
+                        validate={validateScore}
+                        name="score" />
+                      {errors.score && touched.score && <div>{errors.score}</div>}
+                      {/* <ErrorMessage name="score">
+                        {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
+                      </ErrorMessage> */}
+                    </div>
+
                     {
                       register.type === 'episode' ? null :
                         (
-                          <Fieldset
-                            name="episodes"
-                            label="Episodes"
-                            type="text"
-                            validate={validateEpisodes}
-
-                          />      
+                          
+                          <div className={classes.formFiedWrapperStyle} >
+                            <label className={classes.formLabelStyle} >Episodes
+                            </label>
+                            <FastField
+                              className={classes.formFieldStyle}
+                              type="text"
+                              validate={validateEpisodes}
+                              name="episodes" />
+                            {errors.episodes && touched.episodes && <div>{errors.episodes}</div>}
+                            {/* <ErrorMessage name="episodes">
+                              {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
+                            </ErrorMessage> */}
+                          </div>
+                          
                       )  
                     }
-                    
-                    <Fieldset
-                      name="imageUrl"
-                      label="Img URL"
-                      type="text"
-                      validate={validateImageUrl}
-                    />
+                    <div className={classes.formFiedWrapperStyle} >
+                      <label className={classes.formLabelStyle} >Img URL
+                            </label>
+                      <FastField
+                        className={classes.formFieldStyle}
+                        type="text"
+                        validate={validateImageUrl}
+                        name="imageUrl" />
+                      {errors.imageUrl && touched.imageUrl && <div>{errors.imageUrl}</div>}
+                      {/* <ErrorMessage name="imageUrl">
+                        {msg => <div className={`field-error ${classes.errorMessageStyle}`}>{msg}</div>}
+                      </ErrorMessage> */}
+                    </div>
+                   
   
   
                   </div>

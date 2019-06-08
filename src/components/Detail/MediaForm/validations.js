@@ -1,7 +1,8 @@
 export const validateScore = (value) => {
   let error;
+
   const scoreRegex = /(^\d*\.?\d*[1-9]+\d*$)|(^[1-9]+\d*\.\d*$)/;
-  if (value.score === '') {
+  if (value === '') {
     error = 'score required'
   }
   else if (!scoreRegex.test(value) || value > 10) {
@@ -12,13 +13,14 @@ export const validateScore = (value) => {
 }
 
 export const validateTitle = (value) => {
-  const titleRegex = /^[-a-z0-9,/()&:.' ]*[a-z][-a-z0-9,/()&:.' ]*$/
+  // const titleRegex = /^[-a-z0-9,/()&:.' ]*[a-z][-a-z0-9,/()&:.' ]*$/
   let error;
   if (!value ) {
     error = 'title required';
-  } else if (!value.trim() || !titleRegex.test(value)) {
-    error = 'title not valid';
-  } 
+  }
+  // else if (!value.trim() || !titleRegex.test(value)) {
+  //   error = 'title not valid';
+  // } 
 
   return error;
 }
@@ -76,6 +78,8 @@ export const validateCategories = (value) => {
   const categoriesItemRegex = /^[-a-z' ]*[a-z][-a-z' ]*$/i;
   const categoriesItemRegex1 = /^([-a-z' ]*[a-z][-a-z' ]*){3,}$/i;
   let error; 
+   
+  // console.log(values);
   const splittedCategoriesValues = value.split(',');
   if (!value || !value.trim()) {
     error = 'categories required'
