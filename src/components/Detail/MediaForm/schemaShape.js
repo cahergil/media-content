@@ -1,25 +1,25 @@
 import * as Yup from 'yup';
 import * as validators from './validations';
-
+const INVALID_FIELD = 'invalid field';
 export const schemaShows = {
   id: Yup.string(),
   type: Yup.string(),
   title: Yup.string().required('title required'),
   categories: Yup.string()
-    .test('test-categories', 'invalid field', validators.validateCategories)
+    .test('test-categories', INVALID_FIELD, validators.validateCategories)
     .required('categories required'),
   synopsis: Yup.string()
-    .test('test-synopsis', 'invalid field', validators.validateSynopsis)
+    .test('test-synopsis', INVALID_FIELD, validators.validateSynopsis)
     .required('synopsis required'),
   releaseDate: Yup.string().required('release date required'),
   score: Yup.string()
-    .test('test-score', 'invalid field', validators.validateScore)
+    .test('test-score', INVALID_FIELD, validators.validateScore)
     .required('score required'),
   episodes: Yup.string()
-    .test('test-episodes', 'invalid field', validators.validateEpisodes)
+    .test('test-episodes', INVALID_FIELD, validators.validateEpisodes)
     .required('episodes required'),
   imageUrl: Yup.string()
-    .test('test-image', 'invalid field', validators.validateImageUrl)
+    .test('test-image', INVALID_FIELD, validators.validateImageUrl)
     .required('image required')
 };
 
@@ -28,16 +28,16 @@ export const SchquemaEpidose = {
   type: Yup.string(),
   title: Yup.string().required('title required'),
   categories: Yup.string()
-    .test('test-categories', 'invalid field', validators.validateCategories)
+    .test('test-categories', INVALID_FIELD, validators.validateCategories)
     .required('categories required'),
   synopsis: Yup.string()
-    .test('test-synopsis', 'invalid field', validators.validateSynopsis)
+    .test('test-synopsis', INVALID_FIELD, validators.validateSynopsis)
     .required('synopsis required'),
   releaseDate: Yup.string().required('release date required'),
   score: Yup.string()
-    .test('test-score', 'invalid field', validators.validateScore)
+    .test('test-score', INVALID_FIELD, validators.validateScore)
     .required('score required'),
   imageUrl: Yup.string()
-    .test('test-image', 'invalid field', validators.validateImageUrl)
+    .test('test-image', INVALID_FIELD, validators.validateImageUrl)
     .required('image required')
 };
