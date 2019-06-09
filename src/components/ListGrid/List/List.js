@@ -20,7 +20,6 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: "2rem",
-    // overflowX: 'auto',
   },
   table: {
     width: '100%',
@@ -28,16 +27,14 @@ const styles = theme => ({
   paper: {
     marginTop: theme.spacing(3),
     width: '100%',
-    // overflowX: 'auto',
     marginBottom: theme.spacing(2),
   },
   tableHead: {
-
     backgroundColor: '#252934'
   },
   tableId: {
     width: '15%',
-    },
+  },
   tableTitle: {
     width: '75%'
   },
@@ -47,7 +44,7 @@ const styles = theme => ({
   '@global': {
     'tbody > tr:nth-of-type(odd)': {
       backgroundColor: '#f0eeee'
-    }
+  }
   }
 })
 
