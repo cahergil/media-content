@@ -1,7 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import  PropTypes  from 'prop-types';
+
 import { makeStyles } from '@material-ui/styles';
 import ReactImageFallback from "react-image-fallback";
+
 
 import fallbackImage from '../../../../assets/images/image_na.png'
 
@@ -54,6 +57,12 @@ const GridItem = (props) => {
       </div>
     </div>
   );
+}
+
+GridItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired
 }
 
 export default withRouter(GridItem);
