@@ -1,13 +1,16 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { withRouter} from 'react-router-dom'
-
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+
+
+import { MediaType } from './../../../Utils/utils';
+import { PropTypes } from 'prop-types';
 
 const cellFontColor = {
   color: '#000'
@@ -119,6 +122,15 @@ const ListTable = (props) => {
     </React.Fragment>
   );
 }
+
+ListTable.propTypes = {
+  classes: PropTypes.object.isRequired,
+  media: PropTypes.arrayOf(
+    PropTypes.shape(MediaType)
+  ).isRequired,
+
+}
+
 // export default compose(
 //   withRouter(),
 //   withStyles(styles)
