@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 
 import classesScss from './Episodes.module.scss';
 import Grid from '../../ListGrid/Grid/Grid';
+import { MediaType } from '../../../Utils/utils';
 
 
 const useStyles = makeStyles(theme => ({
@@ -36,5 +38,13 @@ const Episodes = (props) => {
       </div>
     </div>
   );
+
 }
+
+Episodes.propTypes = {
+  episodes: PropTypes.arrayOf(
+    PropTypes.shape(MediaType)
+  ).isRequired
+}
+
 export default Episodes;

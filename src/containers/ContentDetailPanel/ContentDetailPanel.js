@@ -6,7 +6,7 @@ import queryString from 'query-string';
 
 import Poster from '../../components/Detail/Poster/Poster';
 import MediaForm from '../../components/Detail/MediaForm/MediaForm';
-import Episodes from './../../components/Detail/Episodes/Epidoses';
+import Episodes from '../../components/Detail/Episodes/Episodes';
 import { deepCopy, getEpisodes } from '../../Utils/utils';
 import * as formActions from '../../store/actions/form';
 import * as breadcrumActions from '../../store/actions/breadcrum';
