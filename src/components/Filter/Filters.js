@@ -3,8 +3,9 @@ import { withStyles, Typography } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
 
-const styles = theme => ({
+const styles = ({
   filterLabel: {
     paddingTop: '4px'
   },
@@ -105,6 +106,18 @@ const Filter = (props) => {
   );
 
 
+}
+
+Filter.propTypes = {
+  classes: PropTypes.object.isRequired,
+  isShows: PropTypes.bool.isRequired,
+  isEpisodes: PropTypes.bool.isRequired,
+  isList: PropTypes.bool.isRequired,
+  isGrid: PropTypes.bool.isRequired,
+  clickShows: PropTypes.func.isRequired,
+  clickEpisodes: PropTypes.func.isRequired,
+  clickList: PropTypes.func.isRequired,
+  clickGrid: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(Filter)
