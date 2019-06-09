@@ -1,4 +1,5 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Formik, FastField, Form, Field, ErrorMessage } from 'formik';
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
@@ -8,6 +9,7 @@ import { KeyboardDatePicker } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
 import * as Yup from 'yup';
 import * as YupFormSchemas from './schemaShape';
+import { MediaType } from './../../../Utils/utils';
 
 
 const useStyles = makeStyles(theme => ({
@@ -76,7 +78,9 @@ const MediaForm = (props) => {
   useEffect(() => {
     const element = document.getElementById('breadcrum');
     element.scrollIntoView();
-  }, [])
+  }, []);
+
+
   const handleSubmit = (values) => {
     const id = values.id;
 
@@ -133,9 +137,7 @@ const MediaForm = (props) => {
           render={({
             isSubmitting,
             setFieldValue,
-            values,
-            errors,
-            touched
+            values
           }) => (
               <Form>
                 <div className={classes.formHeaderStyle}>
@@ -295,10 +297,13 @@ const MediaForm = (props) => {
   return (
     <React.Fragment>
       {content}
-
     </React.Fragment> 
-    
   );
+}
+
+MediaForm.propTypes = {
+  register: PropTypes.shape(MediaType).isRequired,
+  onSaveForm: PropTypes.func.isRequired
 }
 
 export default MediaForm;
