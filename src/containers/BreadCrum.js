@@ -1,9 +1,9 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { Paper, Breadcrumbs } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 const useStyles = makeStyles(theme =>({
@@ -51,6 +51,11 @@ const Breadcrum = (props) => {
       
     </div>
   );
+}
+
+Breadcrumbs.propTypes = {
+  pathSegment: PropTypes.string,
+  onSetPathSegment: PropTypes.func,
 }
 
 export default withRouter(Breadcrum);
