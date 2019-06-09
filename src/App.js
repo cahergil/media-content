@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
 import { connect } from 'react-redux'
 import Breadcrum from './containers/Breadcrum';
+import PropTypes from 'prop-types';
 
 
 import * as mediaActions from './store/actions/media';
@@ -13,7 +14,7 @@ import ContentMediaPanel from './containers/ContentMediaPanel/ContentMediaPanel'
 import ContentDetailPanel from './containers/ContentDetailPanel/ContentDetailPanel';
 
 
-const styles = theme => ({
+const styles = ({
   root: {
     width: '80%',
     height: '100%',
@@ -64,6 +65,12 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+App.propTypes = {
+  pathSegment: PropTypes.string.isRequired,
+  setMediaContent: PropTypes.func.isRequired,
+  onSetPathSegment: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+}
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
