@@ -78,6 +78,7 @@ ContentMediaPanel.propTypes = {
   onSetEpisodes: PropTypes.func.isRequired,
   onSetList: PropTypes.func.isRequired,
   onSetGrid: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 
 }
 
