@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
 import { connect } from 'react-redux'
-import Breadcrum from './containers/Breadcrum';
+import Breadcrum from './components/Breadcrum';
 import PropTypes from 'prop-types';
 
 
