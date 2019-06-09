@@ -99,7 +99,7 @@ export const MediaType = {
   title: PropTypes.string.isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   synopsis: PropTypes.string.isRequired,
-  releaseDate: PropTypes.instanceOf(Moment),
+  releaseDate: PropTypes.instanceOf(Moment).isRequired,
   score: PropTypes.number.isRequired,
   episodes: PropTypes.arrayOf(PropTypes.number),
   imageUrl: PropTypes.string.isRequired
