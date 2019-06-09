@@ -1,8 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
-import GridItem from './GridItem/GridItem';
 
-const styles = theme => ({
+import GridItem from './GridItem/GridItem';
+import { MediaType } from './../../../Utils/utils';
+import { PropTypes } from 'prop-types';
+
+const styles = ({
   root: {
     marginTop: "2rem",
     display: 'grid',
@@ -43,6 +46,14 @@ const Grid = (props) => {
       {content}
     </React.Fragment>
   );
+}
+
+Grid.propTypes = {
+  classes: PropTypes.object.isRequired,
+  media: PropTypes.arrayOf(
+    PropTypes.shape(MediaType)
+  ).isRequired,
+
 }
 
 export default withStyles(styles)(Grid);

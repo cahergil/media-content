@@ -105,7 +105,7 @@ const ListTable = (props) => {
     
   }
   const handleOnClick = (id) => {
-    console.log('click', id);
+  
     props.history.push({
       pathname: '/contents/edit',
       search: `?id=${id}`
