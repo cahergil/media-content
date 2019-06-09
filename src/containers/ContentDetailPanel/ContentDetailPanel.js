@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import  PropTypes  from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import queryString from 'query-string';
 
@@ -10,6 +11,7 @@ import { deepCopy, getEpisodes } from '../../Utils/utils';
 import * as formActions from '../../store/actions/form';
 import * as breadcrumActions from '../../store/actions/breadcrum';
 import classesScss from './ContentDetailPanel.module.scss';
+import { MediaType } from './../../Utils/utils';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -43,7 +45,7 @@ const ContentDetailPanel = (props) => {
     onSetPathSegment(result.title);
     isShow = result.type === SHOW;
     const episodes = isShow ? getEpisodes(result, copiedMedia) : [];
-    console.log(episodes);
+    // console.log(episodes);
     content = (
       <React.Fragment>
         <div>
@@ -80,6 +82,14 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+
+ContentDetailPanel.propTypes = {
+  media: PropTypes.arrayOf(
+    PropTypes.shape(MediaType)
+  ).isRequired,
+  onSaveForm: PropTypes.func.isRequired,
+  onSetPathSegment: PropTypes.func.isRequired
+}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentDetailPanel);
