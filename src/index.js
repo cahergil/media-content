@@ -1,19 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
-import mediaReducer from './store/reducers/media';
-import filterReducer from './store/reducers/filter';
-import breadcrumReducer from './store/reducers/breadcrum';
+
 
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import { rootReducer } from './store/reducers/index';
 
 const theme = createMuiTheme({
   palette: {
@@ -38,14 +37,6 @@ const theme = createMuiTheme({
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const rootReducer = combineReducers({
-  media: mediaReducer,
-  filter: filterReducer,
-  breadcrum: breadcrumReducer
-});
-
-
 const store = createStore(rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );

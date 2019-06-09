@@ -305,3 +305,17 @@ const MediaForm = (props) => {
 }
 
 export default MediaForm;
+
+
+
+
+// doesn't work
+// export default compose(
+//   withRouter(),
+//   withStyles(styles)
+// )(List); not working
+
+// works
+// const List = withRouter(
+//   withStyles(styles)(ListTable));
+// export default List; 

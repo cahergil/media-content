@@ -14,14 +14,22 @@ const ListGrid = (props) => {
     filteredMediaList = filterMedia(media, isShows, isEpisodes);
     
     if (showList) {
-      content = <List media={filteredMediaList}/>
+      content = (
+        <div data-test="component-list">
+          <List media={filteredMediaList} />
+        </div>
+      )
     } else if (showGrid) {
-      content = <Grid media={filteredMediaList} />
+      content = (
+        <div data-test="component-grid">
+          <Grid media={filteredMediaList} />
+        </div>
+      )
     }
    
   }
   return (
-    <div>
+    <div data-test="component-listGrid">
      {content}
     </div>
   )

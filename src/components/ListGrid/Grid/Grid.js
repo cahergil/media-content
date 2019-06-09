@@ -7,7 +7,7 @@ import { PropTypes } from 'prop-types';
 
 const styles = ({
   root: {
-    marginTop: "2rem",
+    marginTop: "3rem",
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(25rem, 1fr))',
     gridColumnGap: '2rem',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import { withRouter} from 'react-router-dom'
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -16,7 +16,7 @@ const cellFontColor = {
   color: '#000'
 }
 
-const styles = theme => ({
+const useStyles = makeStyles({
   root: {
     width: '100%',
     marginTop: "2rem",
@@ -25,9 +25,9 @@ const styles = theme => ({
     width: '100%',
   },
   paper: {
-    marginTop: theme.spacing(3),
+    marginTop: '3rem',
     width: '100%',
-    marginBottom: theme.spacing(2),
+    marginBottom: '2rem'
   },
   tableHead: {
     backgroundColor: '#252934'
@@ -44,12 +44,13 @@ const styles = theme => ({
   '@global': {
     'tbody > tr:nth-of-type(odd)': {
       backgroundColor: '#f0eeee'
+    }
   }
-  }
-})
+});
 
-const ListTable = (props) => {
-  const { classes, media } = props;
+export const List = (props) => {
+  const {  media } = props;
+  const classes = useStyles()
   let content = null;
   if (media) { 
     content = <Paper className={classes.paper}>
@@ -65,37 +66,35 @@ const ListTable = (props) => {
         <TableBody >
           {
             media.map((mediaItem) => (
-
-              <TableRow key={mediaItem.id} style={{ 'cursor': 'pointer' }}  >
-                <TableCell
-                  style={cellFontColor}
-                  className={classes.tableId}
-                  component="th"
-                  align="left"
-                  scope="row"
-                  onClick={() => handleOnClick(mediaItem.id)}
-                >
-                  {mediaItem.id}
-                </TableCell>
-                <TableCell
-                  style={cellFontColor}
-                  className={classes.tableTitle}
-                  align="left"
-                  onClick={() => handleOnClick(mediaItem.id)}
-                >
-                  {mediaItem.title}
-                </TableCell>
-                <TableCell
-                  style={cellFontColor}
-                  className={classes.tableType}
-                  align="right"
-                  onClick={() => handleOnClick(mediaItem.id)}
-                >
-                  {mediaItem.type}
-                </TableCell>
-
-              </TableRow>
-
+                <TableRow data-test="list-item" key={mediaItem.id} style={{ 'cursor': 'pointer' }}  >
+                  <TableCell
+                    style={cellFontColor}
+                    className={classes.tableId}
+                    component="th"
+                    align="left"
+                    scope="row"
+                    onClick={() => handleOnClick(mediaItem.id)}
+                  >
+                    {mediaItem.id}
+                  </TableCell>
+                  <TableCell
+                    style={cellFontColor}
+                    className={classes.tableTitle}
+                    align="left"
+                    onClick={() => handleOnClick(mediaItem.id)}
+                  >
+                    {mediaItem.title}
+                  </TableCell>
+                  <TableCell
+                    style={cellFontColor}
+                    className={classes.tableType}
+                    align="right"
+                    onClick={() => handleOnClick(mediaItem.id)}
+                  >
+                    {mediaItem.type}
+                  </TableCell>
+                </TableRow>
+              
             ))
 
           }
@@ -114,24 +113,18 @@ const ListTable = (props) => {
   }
 
   return (
-    <React.Fragment>
+    <div data-test="component-list">
       {content}
-    </React.Fragment>
+    </div>
   );
 }
 
-ListTable.propTypes = {
-  classes: PropTypes.object.isRequired,
+List.propTypes = {
+
   media: PropTypes.arrayOf(
     PropTypes.shape(MediaType)
   ).isRequired,
 
 }
 
-// export default compose(
-//   withRouter(),
-//   withStyles(styles)
-// )(List);
-const List = withRouter(
-  withStyles(styles)(ListTable));
-export default List; 
+export default withRouter(List); 
