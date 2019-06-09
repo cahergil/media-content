@@ -2,20 +2,22 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 
 
 import * as actions from '../../store/actions/filter';
 import Filters from '../../components/Filter/Filters';
 import ListGrid from '../../components/ListGrid/ListGrid';
+import { MediaType } from './../../Utils/utils';
 
 
-const styles = theme => ({
+const styles = ({
   root: {
     width: '100%',
     display: 'grid',
     gridTemplateRows: 'repeat(2, min-content)',
     gridRowGap: '1.5rem' 
-    // alignItems: 'stretched'
+   
   }
  
 });
@@ -62,6 +64,21 @@ const mapDispatchToProps = dispatch => {
     onSetList: (value) => dispatch(actions.setListFilter(value)),
     onSetGrid: (value) => dispatch(actions.setGridFilter(value))
   }
+}
+
+ContentMediaPanel.propTypes = {
+  media: PropTypes.arrayOf(
+    PropTypes.shape(MediaType)
+  ),
+  shows: PropTypes.bool.isRequired,
+  episodes: PropTypes.bool.isRequired,
+  list: PropTypes.bool.isRequired,
+  grid: PropTypes.bool.isRequired,
+  onSetShows: PropTypes.func.isRequired,
+  onSetEpisodes: PropTypes.func.isRequired,
+  onSetList: PropTypes.func.isRequired,
+  onSetGrid: PropTypes.func.isRequired,
+
 }
 
 export default compose(

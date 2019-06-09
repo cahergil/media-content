@@ -1,3 +1,6 @@
+
+import PropTypes from 'prop-types';
+
 const shuffleArray = (a) => {
   var j, x, i;
   for (i = a.length - 1; i > 0; i--) {
@@ -82,4 +85,16 @@ export const getEpisodes = (result, media) => {
     .sort(compare);
   
   return episodes
+}
+
+
+export const MediaType = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  synopsis: PropTypes.string.isRequired,
+  releaseDate: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+  episodes: PropTypes.arrayOf(PropTypes.number),
+  imageUrl: PropTypes.string.isRequired
 }
