@@ -1,5 +1,7 @@
 
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import Moment from 'moment'
 
 const shuffleArray = (a) => {
   var j, x, i;
@@ -17,6 +19,10 @@ export const transformData = (media) => {
   const mediaCopy = [];
   for (let i = 0; i < media.length; i++) {
     mediaCopy.push({ ...media[i] });
+  }
+  for (let i = 0; i < media.length; i++) {
+    mediaCopy[i].releaseDate = moment(mediaCopy[i].releaseDate)
+      // .format('YYYY-MM-DDTHH:mm:ss.SSSZ'); 
   }
   for (let i = 0; i < mediaCopy.length; i++) {
     if (mediaCopy[i].type === 'show') {
@@ -93,7 +99,7 @@ export const MediaType = {
   title: PropTypes.string.isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   synopsis: PropTypes.string.isRequired,
-  releaseDate: PropTypes.string.isRequired,
+  releaseDate: PropTypes.instanceOf(Moment),
   score: PropTypes.number.isRequired,
   episodes: PropTypes.arrayOf(PropTypes.number),
   imageUrl: PropTypes.string.isRequired

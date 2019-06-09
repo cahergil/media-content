@@ -110,12 +110,7 @@ const MediaForm = (props) => {
     if ((typeof values.score) === 'string') {
       values.score = parseFloat(values.score);
     }
-    
-    // console.log(values.releaseDate);
-    // if ((typeof values.releaseDate) !== 'string') {
-    //       values.releaseDate=  moment(values.releaseDate).toISOString()
-        
-    // }
+   
     onSaveForm(id, values);
     console.log('submitted values', JSON.stringify(values, null, 2));
   }
@@ -124,16 +119,11 @@ const MediaForm = (props) => {
 
   if (register) {
     let initialValues = {}
-    console.log(register.releaseDate);
-    console.log(typeof register.releaseDate);
-    let dateString = register.releaseDate.substr(0, 10).split('-').join('/');
-    const date = new Date(dateString); // to eliminate the momentjs warning
-    const validationSchemaShape = register.type === 'show' ? YupFormSchemas.schemaShows :
-      YupFormSchemas.SchquemaEpidose;
+ 
+    const validationSchemaShape = register.type === 'show' ? YupFormSchemas.schemaShows : YupFormSchemas.SchquemaEpidose;
     
     for (let key in register) {
-      initialValues[key] = key === 'releaseDate' ? date.toISOString() : register[key];
-     
+      initialValues[key] = register[key];
     }
 
     content = (
