@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import List from './List/List';
 import Grid from './Grid/Grid';
 import { filterMedia } from '../../Utils/utils';
+import { MediaType } from './../../Utils/utils';
 
 const ListGrid = (props) => {
   const {  media, showList, showGrid, isShows, isEpisodes } = props
@@ -19,11 +21,20 @@ const ListGrid = (props) => {
    
   }
   return (
-    
     <div>
      {content}
     </div>
   )
+}
+
+ListGrid.propTypes = {
+  media: PropTypes.arrayOf(
+    PropTypes.shape(MediaType)
+  ).isRequired,
+  showList: PropTypes.bool.isRequired,
+  showGrid: PropTypes.bool.isRequired,
+  isShows: PropTypes.bool.isRequired,
+  isEpisodes: PropTypes.bool.isRequired
 }
 
 export default ListGrid;

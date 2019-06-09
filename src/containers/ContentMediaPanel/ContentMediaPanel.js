@@ -69,7 +69,7 @@ const mapDispatchToProps = dispatch => {
 ContentMediaPanel.propTypes = {
   media: PropTypes.arrayOf(
     PropTypes.shape(MediaType)
-  ),
+  ).isRequired,
   shows: PropTypes.bool.isRequired,
   episodes: PropTypes.bool.isRequired,
   list: PropTypes.bool.isRequired,
