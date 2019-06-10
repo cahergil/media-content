@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   }
 })
 
-const GridItem = (props) => {
+export const GridItem = (props) => {
   const { title, imageUrl, id } = props;
   const classes = useStyles(props);
   const handleClick = (id) => {
@@ -43,7 +43,7 @@ const GridItem = (props) => {
     })
   }
   return (
-    <div className={classes.root} onClick={() =>handleClick(id)}>
+    <div className={classes.root} data-test="component-gridItem" onClick={() =>handleClick(id)}>
       <div>
         <ReactImageFallback
           src={imageUrl}
@@ -52,7 +52,7 @@ const GridItem = (props) => {
           className={classes.image} />
       </div>
       <div className={classes.title}>
-        <p>{title}</p>
+        <p data-test="title">{title}</p>
       </div>
     </div>
   );
