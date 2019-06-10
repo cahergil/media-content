@@ -129,8 +129,10 @@ const MediaForm = (props) => {
       values.score = parseFloat(values.score);
     }
    
-    onSaveForm(id, values);
     console.log('submitted values', JSON.stringify(values, null, 2));
+    onSaveForm(id, values);
+   
+ 
   }
 
 
@@ -147,6 +149,7 @@ const MediaForm = (props) => {
     content = (
       <div className={classes.root} >
         <Formik
+          enableReinitialize={true}
           initialValues={initialValues}
           validationSchema={Yup.object().shape(validationSchemaShape)}
           onSubmit={(values, { setSubmitting }) => {

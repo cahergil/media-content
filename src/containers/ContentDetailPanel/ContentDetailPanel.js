@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import  PropTypes  from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
 import queryString from 'query-string';
 
 import Poster from '../../components/Detail/Poster/Poster';
@@ -13,62 +12,82 @@ import * as breadcrumActions from '../../store/actions/breadcrum';
 import classesScss from './ContentDetailPanel.module.scss';
 import { MediaType } from './../../Utils/utils';
 
-const useStyles = makeStyles( theme => ({
-  root: {
-    width: '100%',
-    display: 'grid',
-    gridTemplateColumns: '22.5rem 1fr',
-    gridTemplateRows: 'min-content min-content',
-    gridColumnGap: '2rem',
-    gridRowGap: '4rem',
-    // [theme.breakpoints.down(700)]: {
-    //   gridTemplateColumns: '80%',
-    //   gridTemplateRows: '30rem min-content min-content min-content',
-    //   justifyContent: 'center'
-    // }
-  }
-}));
 
-const ContentDetailPanel = (props) => {
-  const { media, onSaveForm, onSetPathSegment } = props;
-  const SHOW = 'show'
-  const classes = useStyles(props);
-  let isShow = true;
-  const id = queryString.parse(props.location.search).id;
-  let content = null;
-  let copiedMedia = [];
-  if (media.length > 0) {
-    copiedMedia = deepCopy(media);
-    
-    // eslint-disable-next-line
-    const result = copiedMedia.filter(mediaItem => mediaItem.id == id)[0];
-    onSetPathSegment(result.title);
-    isShow = result.type === SHOW;
-    const episodes = isShow ? getEpisodes(result, copiedMedia) : [];
-    // console.log(episodes);
-    content = (
-      <React.Fragment>
-        <div>
-          <Poster imageUrl={result.imageUrl} title={result.title}/>
-        </div>
-        <div className={classesScss.FormBoxShadow}>
-          <MediaForm
-            register={result}
-            onSaveForm={onSaveForm} />
-        </div>
-        {isShow ? <Episodes episodes={episodes}/>: null}  
-  
-        
-      </React.Fragment>
-    )
-     
+class  ContentDetailPanel extends Component   {
+  state = {
+    result:  null,
+    episodes: null,
+    isShow: false,
+    contentFetched: false,
+    id: null
   }
-  return (
-    <div className={classes.root}>
-      {content}
+  componentDidMount() {
+    
+    this.loadData();
+  }
+  componentDidUpdate() {
+   
+    this.loadData();
+  }
+
+  loadData() {
+    const SHOW = 'show'
+    let isShow = true;
+    const id = queryString.parse(this.props.location.search).id;
+  
+    if (id === this.state.id) {
+      return;
+    }
+    let copiedMedia = [];
+    if (this.props.media.length > 0) {
+      copiedMedia = deepCopy(this.props.media);
+
+      // eslint-disable-next-line
+      const result = copiedMedia.filter(mediaItem => mediaItem.id == id)[0];
+      console.log(result);
+     
+      this.props.onSetPathSegment(result.title);
+      isShow = result.type === SHOW;
       
-    </div>
-  );
+      this.setState({
+        episodes: isShow ? getEpisodes(result, copiedMedia) : null,
+        isShow: isShow,
+        result: result,
+        contentFetched: true,
+        id: id
+      });
+      
+    
+
+    }
+  }
+  render() {
+ 
+    let content = null;
+    if (this.state.contentFetched) {
+      content = (
+        <React.Fragment>
+          <div>
+            <Poster imageUrl={this.state.result.imageUrl} title={this.state.result.title} />
+          </div>
+          <div className={classesScss.FormBoxShadow}>
+            <MediaForm
+              register={this.state.result}
+              onSaveForm={this.props.onSaveForm} />
+          </div>
+          { this.state.isShow ? <Episodes episodes={this.state.episodes} /> : null}
+
+
+        </React.Fragment>
+      )
+    } 
+    return (
+         <div className={classesScss.Root}>
+        {content}
+
+      </div>
+    )
+  }
 }
 const mapStateToProps = state => {
   return {
