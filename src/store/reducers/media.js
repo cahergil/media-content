@@ -31,7 +31,6 @@ const reducer = (state = initialState, action) => {
         // eslint-disable-next-line eqeqeq
         if (temp[i].id == action.payload.id) {
           k = i;
-          console.log(k);
           break;
         }
       }

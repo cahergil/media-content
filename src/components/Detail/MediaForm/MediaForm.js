@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
-import moment from 'moment';
+
 import * as Yup from 'yup';
 import * as YupFormSchemas from './schemaShape';
 import { MediaType } from './../../../Utils/utils';
@@ -72,6 +72,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const DatePickerField = ({ field, form, ...other }) => {
+  const currentError = form.errors[field.name];
+  return (
+    <KeyboardDatePicker
+      format="YYYY/MM/DD"
+      name={field.name}
+      value={field.value}
+      // helperText={currentError}
+      error={Boolean(currentError)}
+      onError={(_, error) => form.setFieldError(field.name, error)}
+      onChange={date => form.setFieldValue(field.name, date, true)}
+      {...other}
+    />
+  );
+};
+
+
 
 const MediaForm = (props) => {
   const { register, onSaveForm } = props;
@@ -84,6 +101,7 @@ const MediaForm = (props) => {
     element.scrollIntoView();
   }, []);
 
+  
 
   const handleSubmit = (values) => {
     const id = values.id;
@@ -136,9 +154,8 @@ const MediaForm = (props) => {
             setSubmitting(false);
           }}
           render={({
-            isSubmitting,
-            setFieldValue,
-            values
+    
+            isValid
           }) => (
               <Form>
                 <div className={classes.formHeaderStyle}>
@@ -149,8 +166,8 @@ const MediaForm = (props) => {
                   <Button
                     type="submit"
                     variant="contained"
-                    color="primary"
-                    disabled={isSubmitting}
+                    color="secondary"
+                    disabled={!isValid}
                     className={classes.button}>
                     Save
                   </Button>
@@ -212,15 +229,18 @@ const MediaForm = (props) => {
                     <div className={classes.releaseDateStyle}>
                       <label style={{ 'marginRight': '1rem', 'fontSize': '1.5rem' }} >Release Date </label>
                       <MuiPickersUtilsProvider utils={MomentUtils}>
-
-                        <KeyboardDatePicker
+                        <Field name="releaseDate" component={DatePickerField} />
+                        {/* <KeyboardDatePicker
 
                           name={'releaseDate'}
                           value={values['releaseDate']}
-                          onChange={date => setFieldValue('releaseDate', date)}
+                          onChange={date => setFieldValue('releaseDate', date)
+                          
+                          }
+                                     
                           format="YYYY/MM/DD"
 
-                        />
+                        /> */}
 
                       </MuiPickersUtilsProvider>
                     </div>
@@ -286,11 +306,12 @@ const MediaForm = (props) => {
                     </div>
 
                   </div>
+                 
                 </div>
               </Form>
             )}
         >
-  
+                
         </Formik>
       </div>
     )
@@ -298,6 +319,7 @@ const MediaForm = (props) => {
   return (
     <React.Fragment>
       {content}
+        
     </React.Fragment> 
   );
 }
