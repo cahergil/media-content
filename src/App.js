@@ -29,9 +29,9 @@ const styles = ({
 
 
 const  App = props => {
-  const { classes, pathSegment, onSetPathSegment } = props;
+  const { classes, pathSegment, onSetPathSegment,setMediaContent} = props;
   useEffect(() => {
-    props.setMediaContent();
+    setMediaContent();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

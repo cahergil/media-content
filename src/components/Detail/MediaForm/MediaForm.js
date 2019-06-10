@@ -91,7 +91,7 @@ const DatePickerField = ({ field, form, ...other }) => {
 
 
 const MediaForm = (props) => {
-  const { register, onSaveForm } = props;
+  const { register, onSaveForm, onSetPathSegment } = props;
  
   const classes = useStyles(props);
   let content = null;
@@ -131,6 +131,7 @@ const MediaForm = (props) => {
    
     console.log('submitted values', JSON.stringify(values, null, 2));
     onSaveForm(id, values);
+    onSetPathSegment(values.title);
    
  
   }
@@ -328,6 +329,7 @@ const MediaForm = (props) => {
 }
 
 MediaForm.propTypes = {
+  onSetPathSegment: PropTypes.func,
   register: PropTypes.shape(MediaType).isRequired,
   onSaveForm: PropTypes.func.isRequired
 }

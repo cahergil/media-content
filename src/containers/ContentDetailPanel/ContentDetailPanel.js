@@ -44,7 +44,7 @@ class  ContentDetailPanel extends Component   {
 
       // eslint-disable-next-line
       const result = copiedMedia.filter(mediaItem => mediaItem.id == id)[0];
-      console.log(result);
+      
      
       this.props.onSetPathSegment(result.title);
       isShow = result.type === SHOW;
@@ -72,6 +72,7 @@ class  ContentDetailPanel extends Component   {
           </div>
           <div className={classesScss.FormBoxShadow}>
             <MediaForm
+              onSetPathSegment={this.props.onSetPathSegment}
               register={this.state.result}
               onSaveForm={this.props.onSaveForm} />
           </div>
