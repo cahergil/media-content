@@ -1,11 +1,11 @@
 import React from 'react';
-import { withStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
+import { PropTypes } from 'prop-types';
 
 import GridItem from './GridItem/GridItem';
 import { MediaType } from './../../../Utils/utils';
-import { PropTypes } from 'prop-types';
 
-const styles = ({
+const useStyles = makeStyles({
   root: {
     marginTop: "3rem",
     display: 'grid',
@@ -17,21 +17,23 @@ const styles = ({
 });
 
 const Grid = (props) => {
-  const { classes, media } = props;
-  
+  const {  media } = props;
+  const classes = useStyles();
+
   let content = null;
   if (media) {
    
     content = (
-      <div className={classes.root} >
+      <div className={classes.root} data-test="component-grid">
       {
         media.map((mediaItem, index) => {
           return (
-            <GridItem
-              key={index}
-              id={mediaItem.id}
-              title={mediaItem.title}
-              imageUrl={mediaItem.imageUrl} />
+            <div data-test="grid-item" key={index}>
+              <GridItem
+                id={mediaItem.id}
+                title={mediaItem.title}
+                imageUrl={mediaItem.imageUrl} />
+            </div>
           );
 
         })
@@ -49,11 +51,10 @@ const Grid = (props) => {
 }
 
 Grid.propTypes = {
-  classes: PropTypes.object.isRequired,
   media: PropTypes.arrayOf(
     PropTypes.shape(MediaType)
   ).isRequired,
 
 }
 
-export default withStyles(styles)(Grid);
+export default Grid;
