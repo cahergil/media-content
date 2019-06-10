@@ -29,7 +29,7 @@ const styles = ({
 
 
 
-const Filter = (props) => {
+export const Filter = (props) => {
   const { classes, isShows, isEpisodes, isList, isGrid, clickShows, clickEpisodes, clickList, clickGrid } = props;
   
   const checkBoxHandler = name => event => {
