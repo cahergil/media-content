@@ -1,11 +1,12 @@
 import React from 'react';
-import { withStyles, Typography } from '@material-ui/core';
+import {Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
-const styles = ({
+const useStyles = makeStyles({
   filterLabel: {
     paddingTop: '4px'
   },
@@ -24,13 +25,14 @@ const styles = ({
   },
   marginButton: {
     margin: '1px'
-  },
+  }
 });
 
 
 
 export const Filter = (props) => {
-  const { classes, isShows, isEpisodes, isList, isGrid, clickShows, clickEpisodes, clickList, clickGrid } = props;
+  const { isShows, isEpisodes, isList, isGrid, clickShows, clickEpisodes, clickList, clickGrid } = props;
+  const classes = useStyles();
   
   const checkBoxHandler = name => event => {
     if (name === 'showsCheckbox') {
@@ -52,7 +54,7 @@ export const Filter = (props) => {
     clickGrid(true);
   }
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-test="component-filters">
      
       <Typography className={classes.filterLabel} variant="h5" >
         Filter
@@ -64,6 +66,7 @@ export const Filter = (props) => {
             checked={isShows}
             onChange={checkBoxHandler('showsCheckbox')}
             value="shows"
+          
             
           />
         }
@@ -109,7 +112,6 @@ export const Filter = (props) => {
 }
 
 Filter.propTypes = {
-  classes: PropTypes.object.isRequired,
   isShows: PropTypes.bool.isRequired,
   isEpisodes: PropTypes.bool.isRequired,
   isList: PropTypes.bool.isRequired,
@@ -120,4 +122,4 @@ Filter.propTypes = {
   clickGrid: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(Filter)
+export default Filter;
