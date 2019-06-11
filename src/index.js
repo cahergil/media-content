@@ -11,7 +11,6 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
 import { rootReducer } from './store/reducers/index';
 
 const theme = createMuiTheme({

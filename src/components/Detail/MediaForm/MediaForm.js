@@ -234,19 +234,7 @@ const MediaForm = (props) => {
                       <label style={{ 'marginRight': '1rem', 'fontSize': '1.5rem' }} >Release Date </label>
                       <MuiPickersUtilsProvider utils={MomentUtils}>
                         <Field name="releaseDate" component={DatePickerField} />
-                        {/* <KeyboardDatePicker
-
-                          name={'releaseDate'}
-                          value={values['releaseDate']}
-                          onChange={date => setFieldValue('releaseDate', date)
-                          
-                          }
-                                     
-                          format="YYYY/MM/DD"
-
-                        /> */}
-
-                      </MuiPickersUtilsProvider>
+                       </MuiPickersUtilsProvider>
                     </div>
 
                   </div>

@@ -1,16 +1,14 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Paper, Breadcrumbs } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { withRouter } from 'react-router-dom';
 
 
 const useStyles = makeStyles(theme =>({
   root: {
-    // marginTop: 'rem',
     justifyContent: 'start',
-    
   },
   paper: {
     padding: theme.spacing(1, 0),
