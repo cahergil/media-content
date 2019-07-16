@@ -20,10 +20,13 @@ const useStyles = makeStyles({
     // // backgroundSize: '20rem 20rem',
     // backgroundSize: 'cover',
     // backgroundRepeat: 'no-repeat',
-    minWidth: '25rem',
-    maxWidth: '25rem',
-    minHeight: '20rem',
-    maxHeight: '20rem'
+    // minWidth: '25rem',
+    // maxWidth: '25rem',
+    // minHeight: '20rem',
+    // maxHeight: '20rem'
+    width: '25rem',
+    height: '25rem',
+    objectFit: 'cover'
   },
   title: {
     fontWeight: '700',

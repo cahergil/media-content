@@ -8,10 +8,9 @@ import classesScss from './Poster.module.scss';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: '22.5rem',
-    maxWidth: '22.5rem',
-    minHeight: '20rem',
-    maxHeight: '20rem',
+    width: '22.5rem',
+    height: '20rem',
+    objectFit: 'cover'
   }
 });
 
