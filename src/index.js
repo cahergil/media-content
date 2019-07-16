@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
@@ -44,11 +45,11 @@ const store = createStore(rootReducer,
 ReactDOM.render(
   
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
       <MuiThemeProvider theme={theme} >
         <App />
       </MuiThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   </Provider>
  
   , document.getElementById('root'));
