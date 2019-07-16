@@ -29,7 +29,14 @@ export const setMediaContent = () => {
   return dispatch => {
     dispatch(setMediaContentStart());
     // axios.get('./data.json')
-    axios.get('../data.json')
+    const route = '../data.json';
+    let finalRoute;
+    if (process.env.NODE_ENV === 'production') {
+      finalRoute = route.substr(3);
+    } else {
+      finalRoute = route
+    }
+    axios.get(finalRoute)
       .then(response => {
         dispatch(setMediaContentSucceed(transformData(response.data.contents)))
       }
